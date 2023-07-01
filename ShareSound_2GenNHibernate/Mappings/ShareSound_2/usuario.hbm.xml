@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="ShareSound_2GenNHibernate"
+		                   namespace="ShareSound_2GenNHibernate.EN.ShareSound_2">
+		    
+		    
+			
+				<class name="UsuarioEN" table="Usuario"> 
+				  	
+						<id name="Id" column="idUsuario" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Pass" type="string"> 
+						<column name="pass"  not-null="true"/>
+					</property>
+					<property name="Nombre" type="string"> 
+						<column name="nombre"  unique="true" not-null="true"/>
+					</property>
+					<property name="Descripcion" type="string"> 
+						<column name="descripcion"  not-null="true"/>
+					</property>
+					<property name="Imagen" type="string"> 
+						<column name="imagen"  not-null="true"/>
+					</property>
+					<property name="Email" type="string"> 
+						<column name="email"  unique="true" not-null="true"/>
+					</property>
+					<property name="Fecha" type="date"> 
+						<column name="fecha"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		  			
+						<bag name="Playlists_creadas" >
+							<key>
+							
+								
+								<column name="FK_idUsuario_idUsuario"/>
+					      	</key>
+							<one-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Playlists_seguidas" table="[usuario_0_playlist]"  >
+							<key>
+								
+									<column name="FK_idUsuario_idSeguidores"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN">
+									<column name="FK_idLista_idPlaylist"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Albums_creados" >
+							<key>
+							
+								
+								<column name="FK_idUsuario_idUsuario_0"/>
+					      	</key>
+							<one-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Albums_seguidos" table="[usuario_0_album]"  >
+							<key>
+								
+									<column name="FK_idUsuario_idSeguidores"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN">
+									<column name="FK_idLista_idAlbum"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Canciones_gustadas" table="[cancion_usuario]" inverse="true" >
+							<key>
+								
+									<column name="FK_idUsuario_idUsuario"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN">
+									<column name="FK_idCancion_idCanciones_gustadas"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Comentarios" >
+							<key>
+							
+								
+								<column name="FK_idUsuario_idUsuario"/>
+					      	</key>
+							<one-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.ComentarioEN"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="Seguidos" table="[usuario_usuario_0]" inverse="true" >
+							<key>
+								
+									<column name="FK_idUsuario_idUsuario"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN">
+									<column name="FK_idUsuario_idUsuario_0"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Seguidores" table="[usuario_usuario_0]"  >
+							<key>
+								
+									<column name="FK_idUsuario_idUsuario_0"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN">
+									<column name="FK_idUsuario_idUsuario"/> 
+      						</many-to-many>
+    					</bag>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="UsuarioENReadAllHQL">from UsuarioEN</query>
+		  <query name="UsuarioENdameUsuarioPorEmailHQL"><![CDATA[SELECT usu FROM UsuarioEN as usu where usu.Email = :email]]></query>
+		</hibernate-mapping>
+	

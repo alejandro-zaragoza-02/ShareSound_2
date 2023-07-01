@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ShareSound_2_Front.Models.ListaViewModel>
+
+@{
+    ViewBag.Title = "Mis playlists";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva playlist", "Create")
+</p>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <a class="col-lg-3 col-md-6 col-sm-12" href="@Url.Action("Details","Playlist", new { id = item.Id })">
+            <div class="text-center">
+                @{
+                    if (item.ImagenExt == "")
+                    {
+                        <img src="~/src/Playlists/noimg.jpg" class="img_list" />
+                    }
+                    else
+                    {
+                        <img src="~/src/Playlists/@(item.Id + item.ImagenExt)" class="img_list" />
+                    }
+                }
+            </div>
+            <p class="text-center">@(item.Titulo)</p>
+        </a>
+    }
+
+</div>

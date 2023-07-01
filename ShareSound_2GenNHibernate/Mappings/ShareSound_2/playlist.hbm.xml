@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="ShareSound_2GenNHibernate"
+		                   namespace="ShareSound_2GenNHibernate.EN.ShareSound_2">
+		    
+		    
+			
+				
+<joined-subclass name="PlaylistEN" extends="ShareSound_2GenNHibernate.EN.ShareSound_2.ListaEN" table="Playlist"> 
+	<key>
+    	
+				<column name="idLista"/>
+		
+    	
+   	</key>
+
+			
+					
+			
+			
+		  			
+						<many-to-one name="Usuario" class="ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN" >	
+								<column name="FK_idUsuario_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<bag name="Seguidores" table="[usuario_0_playlist]" inverse="true" >
+							<key>
+								
+									<column name="FK_idLista_idPlaylist"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN">
+									<column name="FK_idUsuario_idSeguidores"/> 
+      						</many-to-many>
+    					</bag>
+			
+		  			
+						<bag name="Canciones" table="[playlist_cancion]"  >
+							<key>
+								
+									<column name="FK_idLista_idPlaylist"/> 
+							</key>
+      						<many-to-many class="ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN">
+									<column name="FK_idCancion_idCancion"/> 
+      						</many-to-many>
+    					</bag>
+					
+					
+					
+		
+ 	  
+		 </joined-subclass>
+		  
+		  <query name="PlaylistENReadAllHQL">from PlaylistEN</query>
+		</hibernate-mapping>
+	

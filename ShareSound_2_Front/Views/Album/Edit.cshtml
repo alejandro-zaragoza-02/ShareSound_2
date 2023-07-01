@@ -1,0 +1,111 @@
+﻿@model ShareSound_2_Front.Models.ListaViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editar álbum</h2>
+
+@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { @class = "form-horizontal", role = "form", Enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@Model.Titulo</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Imagen, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Imagen, new { type = "file" })
+                @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>Título</th>
+                <th>Álbum</th>
+                <th>Artista</th>
+                <th>Me gustas</th>
+                <th>Reproducciones</th>
+                <th>Duración</th>
+                <th>Edición</th>
+
+            </tr>
+            @foreach (var item in Model.Canciones)
+            {
+                <tr songId="@Html.DisplayFor(modelItem => item.Id)">
+                    <td>
+                        <a href="/Cancion/Details/@(item.Id)">@item.Titulo</a>
+                    </td>
+                    <td>
+                        <a href="/Album/Details/@Html.DisplayFor(modelItem => item.Album.Id)">@Html.DisplayFor(modelItem => item.Album.Titulo)</a>
+                    </td>
+                    <td>
+                        <a href="/Usuario/Details/@item.Album.Usuario">@item.Usuario.Nombre</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart"></span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.N_repros) <span class="glyphicon glyphicon-eye-open"></span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default" id="btnDelete" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Eliminar álbum</h4>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que quieres eliminar este álbum?<br />
+                                <i>Nota: esto eliminará también todas las canciones añadidas al álbum</i>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <a href="@Url.Action("Delete", "Cancion", new { id = item.Id })" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                <a href="@Url.Action("Details", "Album", new { id = Model.Id })" class="btn btn-default">Cancelar</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

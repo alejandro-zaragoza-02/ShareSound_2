@@ -1,0 +1,150 @@
+﻿@model ShareSound_2_Front.Models.ListaViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Eliminar álbum</h4>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres eliminar este álbum?<br />
+                <i>Nota: esto eliminará también todas las canciones añadidas al álbum</i>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <header class="row">
+        <div class="text-center col-lg-2 col-md-2 col-sm-2">
+            <img src="~/src/Albumes/@(Model.Id + Model.ImagenExt)" alt="Imagen de álbum" class="img-responsive img-rounded img_list" />
+        </div>
+        <div class="col-lg-10">
+            <div>
+                <h2>
+                    @Html.DisplayFor(model => model.Titulo)
+                </h2>
+                <a href="/Usuario/Details/@Model.Usuario.Id" class="clearfix">
+                    <img src="~/src/Usuarios/@(Model.Usuario.Id + Model.ImagenExt)" alt="Imagen de usuario" class="img-responsive img-circle user_icon pull-left" />
+                    <p class="pull-left">@Model.Usuario.Nombre</p>
+                </a>
+                <p>
+                    <i>@Html.DisplayFor(model => model.Descripcion)</i>
+                </p>
+            </div>
+            <div>
+                <button type="button" class="btn btn-default" id="reproducir"><span class="glyphicon glyphicon-play" aria-hidden="true"> Reproducir</button>
+                <button type="button" class="btn btn-default d-none" id="pausar" style="display: none"><span class="glyphicon glyphicon-pause" aria-hidden="true"> Pausar</button>
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-random"></span> Aleatorio</button>
+                <button type="button" class="btn btn-default" id="btnShare"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Compartir</button>
+                @{
+                    if (Model.Usuario.Id == Convert.ToInt32(Session["userId"]))
+                    {
+                        <a href="@Url.Action("Create", "Cancion")" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Añadir canción</a>
+                        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
+                        <button type="button" class="btn btn-default" id="btnDelete" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+                    }
+                    else
+                    {
+                        bool found = false;
+                        foreach (var seguidor in Model.Seguidores)
+                        {
+                            if (seguidor.Id == Convert.ToInt32(Session["userId"]))
+                            {
+                                found = true;
+                            }
+                        }
+                        if (found)
+                        {
+                            <a href="@Url.Action("UnFollow", new { id = Model.Id })" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> Dejar de seguir</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Follow", new { id = Model.Id })" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span> Seguir</a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </header>
+    <table class="table">
+        <tr>
+            <th>Título</th>
+            <th>Álbum</th>
+            <th>Artista</th>
+            <th>Me gustas</th>
+            <th>Reproducciones</th>
+            <th>Duración</th>
+            <th>Acciones</th>
+
+        </tr>
+        @foreach (var item in Model.Canciones)
+        {
+            <tr songId="@Html.DisplayFor(modelItem => item.Id)">
+                <td>
+                    @item.Titulo
+                </td>
+                <td>
+                    <a href="/Album/Details/@Html.DisplayFor(modelItem => item.Album.Id)">@Html.DisplayFor(modelItem => item.Album.Titulo)</a>
+                </td>
+                <td>
+                    <a href="/Usuario/Details/@item.Album.Usuario">@item.Usuario.Nombre</a>
+                </td>
+                <td>
+                    @{
+                        bool user_found = false;
+                        foreach (var usuarios_gustados in item.UsuariosGustados)
+                        {
+                            if (usuarios_gustados.Id == Convert.ToInt32(Session["userId"]))
+                            {
+                                user_found = true;
+                            }
+                        }
+                        if (user_found)
+                        {
+                            <a href="@Url.Action("UnLike", "Cancion", new { id = item.Id })">
+                                @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart"></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Like", "Cancion", new { id = item.Id })">
+                                @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart-empty"></span>
+                            </a>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.N_repros) <span class="glyphicon glyphicon-eye-open"></span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-expand">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            @foreach (var playlist in ViewData["idPlaylistSelected"] as Dictionary<int, string>)
+                            {
+                                <li><a href="@Url.Action("Add", "Playlist", new { play_id = @playlist.Key, song_id = item.Id })">@playlist.Value</a></li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
