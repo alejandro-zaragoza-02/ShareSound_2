@@ -1,6 +1,16 @@
-﻿body {
-    padding-top: 50px;
+﻿@font-face {
+    font-family: 'Rubik'; /*a name to be used later*/
+    src: url('../../fonts/static/Rubik-Regular.ttf'); /*URL to font*/
+}
+
+* {
+    font-family: 'Rubik';
+}
+
+body {
+    padding-top: 70px;
     padding-bottom: 20px;
+    margin-bottom: 14%;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -23,17 +33,253 @@ textarea {
     max-width: 280px;
 }
 
-.img_list{
-    width: 100%;
-    max-width: 300px;
-    aspect-ratio: 1/1;
-    padding: 1em;
-    object-fit: cover;
+.sidebar {
+    background-color: black;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 80px 0 0;
+    width: 180px;
+    z-index: 1;
+    border: none;
 }
 
-.user_icon {
-    width: 100%;
-    max-width: 36px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+.sidebar-sticky {
+    z-index: 1;
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
+
+body {
+    color: white;
+    background-color: #1e1d1d;
+    padding-left: 240px;
+}
+
+.list-group-item {
+    border: none;
+    background-color: black;
+}
+
+nav span a {
+    color: #9d9d9d;
+}
+
+    nav span a:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+.logo {
+    margin-left: 15px !important;
+}
+
+.navbar-inverse {
+    background-color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.login {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.img_list {
+    width: 300px;
+    height: 300px;
+    padding: 1em;
+}
+
+.header_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+    .header_list h2 {
+        font-size: 3.4em;
+    }
+
+.user_icon {
+    width: 32px;
+    height: 32px;
+    margin-right: .3em;
+}
+
+.user_line {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+    .user_line a {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+.list_info {
+    border: 2px solid black;
+    background-color: #222;
+    padding: 1em;
+    margin: 1em;
+    margin-left: auto;
+    height: fit-content;
+    min-width: 130px;
+}
+
+.control-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1em;
+    width: 100%;
+}
+
+.reproductor {
+    padding-top: 5px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 14%;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    z-index: 2;
+}
+
+.musica {
+    max-width: none !important;
+}
+
+.volumen {
+    max-width: none !important;
+    width: 60% !important;
+    float: right;
+}
+
+.changecolor {
+    filter: invert(100%);
+}
+
+.roundbuttonplay {
+    background-color: #2624c9;
+    color: white;
+    padding: 13px 13px 13px 13px;
+    border-radius: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+    .roundbuttonplay:hover {
+        background-color: white;
+        color: #2624c9;
+    }
+
+.roundbutton {
+    background-color: #2624c9;
+    color: white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+    .roundbutton:hover {
+        background-color: white;
+        color: #2624c9;
+    }
+
+.logreg {
+    background-color: #2624c9;
+    color: white;
+    border: none;
+}
+
+    .logreg:hover {
+        background-color: white;
+        color: #2624c9;
+    }
+
+.icono {
+    background-color: black;
+    font-size: small;
+}
+
+.cuadrado {
+    width: 150px; /* Ancho de 150 píxeles */
+    height: 150px; /* Alto de 150 píxeles */
+    /* Fondo de color rojo */
+
+    text-align: center;
+}
+
+.formulario {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.select {
+    padding: 4px;
+    background-color: #2624c9;
+    border: none;
+    color: white;
+}
+
+    .select:hover {
+        background-color: white;
+        color: #2624c9;
+    }
+
+.formlogin {
+    background-color: black;
+    padding-left: 0 !important;
+}
+
+.checkbox {
+    margin-left: 20px;
+}
+
+.buscar {
+    padding: 5px 6px 7px 6px;
+    background-color: #2624c9;
+    border: none;
+    color: white;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+    .buscar:hover {
+        background-color: white;
+        color: #2624c9;
+    }
+
+.buscador {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.cancion_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .cancion_div img {
+        height: 40vh;
+        width: auto;
+        max-width: 70vw;
+    }
