@@ -87,7 +87,7 @@
 		 </class>	
 		  
 		  <query name="CancionENReadAllHQL">from CancionEN</query>
-		  <query name="CancionENbuscarPorTituloHQL"><![CDATA[FROM CancionEN]]></query>
+		  <query name="CancionENbuscarPorTituloHQL"><![CDATA[FROM CancionEN as can where can.Titulo LIKE :titulo]]></query>
 		  <query name="CancionENordenarPorReproduccionesHQL"><![CDATA[FROM CancionEN]]></query>
 		  <query name="CancionENordenarPorMeGustasHQL"><![CDATA[FROM CancionEN]]></query>
 		  <query name="CancionENordenarPorTituloHQL"><![CDATA[FROM CancionEN]]></query>

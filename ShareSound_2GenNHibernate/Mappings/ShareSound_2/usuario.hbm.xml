@@ -146,5 +146,6 @@
 		  
 		  <query name="UsuarioENReadAllHQL">from UsuarioEN</query>
 		  <query name="UsuarioENdameUsuarioPorEmailHQL"><![CDATA[SELECT usu FROM UsuarioEN as usu where usu.Email = :email]]></query>
+		  <query name="UsuarioENbuscarPorNombreHQL"><![CDATA[FROM UsuarioEN as usu where usu.Nombre LIKE :nombre]]></query>
 		</hibernate-mapping>
 	

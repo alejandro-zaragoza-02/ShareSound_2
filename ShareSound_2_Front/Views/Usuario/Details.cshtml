@@ -1,0 +1,84 @@
+﻿@model ShareSound_2_Front.Models.UsuarioViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Datos de Usuario</h2>
+<hr />
+<main class="margin">
+    <div class="row">
+        <div class="pull-left padding">
+            <img src="~/src/Usuarios/@(Model.Id + Model.ImagenExt)" alt="Imagen de Usuario" class="img-responsive img-circle user_img" />
+        </div>
+        <div class="pull-left padding">
+            <h4>@Model.Nombre</h4>
+            <p>@Model.Descripcion</p>
+            <div>
+                <span class="label label-default padding">Seguidores:  @Model.Seguidores.Count</span>
+                <span class="label label-default padding">Siguiendo:  @Model.Seguidos.Count</span>
+            </div>
+            <div>
+                @{
+                    if (Model.Id == Convert.ToInt32(Session["userId"]))
+                    {
+                        
+                    }
+                    else
+                    {
+                        bool found = false;
+                        foreach (var seguidor in Model.Seguidores)
+                        {
+                            if (seguidor.Id == Convert.ToInt32(Session["userId"]))
+                            {
+                                found = true;
+                            }
+                        }
+                        if (found)
+                        {
+                            <a href="@Url.Action("UnFollow", new { id = Model.Id })" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> Dejar de seguir</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Follow", new { id = Model.Id })" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span> Seguir</a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group margin" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <div>Álbumes</div>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    @foreach (var item in Model.AlbumsCreados)
+                    {
+                        <a class="col-lg-3 col-md-6 col-sm-12" href="@Url.Action("Details","Album", new { id = item.Id })">
+                            <div class="text-center">
+                                @{
+                                    if (item.ImagenExt == "")
+                                    {
+                                        <img src="~/src/Albumes/noimg.jpg" class="img_list" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/src/Albumes/@(item.Id + item.ImagenExt)" class="img_list" />
+                                    }
+                                }
+                            </div>
+                            <p class="text-center">@(item.Titulo)</p>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

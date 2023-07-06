@@ -113,6 +113,11 @@ nav span a {
     margin-right: .3em;
 }
 
+.user_img {
+    width: 200px;
+    height: 200px;
+}
+
 .user_line {
     display: flex;
     flex-direction: row;
@@ -224,14 +229,6 @@ nav span a {
     text-align: center;
 }
 
-.formulario {
-    margin-top: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-}
-
 .select {
     padding: 4px;
     background-color: #2624c9;
@@ -291,4 +288,16 @@ nav span a {
     align-items: center;
     justify-content: center;
     margin-left: 15em;
+}
+
+.padding{
+    padding: 1em;
+}
+
+.margin{
+    margin: 1em;
+}
+
+.maxh{
+    height: 100%;
 }

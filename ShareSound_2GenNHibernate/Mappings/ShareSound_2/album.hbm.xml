@@ -53,5 +53,6 @@
 		 </joined-subclass>
 		  
 		  <query name="AlbumENReadAllHQL">from AlbumEN</query>
+		  <query name="AlbumENbuscarPorTituloHQL"><![CDATA[FROM AlbumEN as al where al.Titulo LIKE :titulo]]></query>
 		</hibernate-mapping>
 	

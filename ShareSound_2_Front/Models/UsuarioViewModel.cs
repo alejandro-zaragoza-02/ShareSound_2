@@ -41,19 +41,19 @@ namespace ShareSound_2_Front.Models
         [Display(Name = "Fecha de nacimiento")]
         public System.DateTime Fecha { get; set; }
 
-        public List<CancionEN> CancionesGustadas { get; set; }
+        public List<BasicCancionViewModel> CancionesGustadas { get; set; }
 
-        public List<UsuarioEN> Seguidores { get; set; }
+        public List<BasicUserViewModel> Seguidores { get; set; }
 
-        public List<UsuarioEN> Seguidos { get; set; }
+        public List<BasicUserViewModel> Seguidos { get; set; }
 
-        public List<PlaylistEN> PlaylistCreadas { get; set; }
+        public List<BasicListaViewModel> PlaylistCreadas { get; set; }
 
-        public List<PlaylistEN> PlaylistSeguidas { get; set; }
+        public List<BasicListaViewModel> PlaylistSeguidas { get; set; }
 
-        public List<AlbumEN> AlbumsCreados { get; set; }
+        public List<BasicListaViewModel> AlbumsCreados { get; set; }
 
-        public List<AlbumEN> AlbumsSeguidos { get; set; }
+        public List<BasicListaViewModel> AlbumsSeguidos { get; set; }
 
         public List<ComentarioEN> Comentarios { get; set; }
     }

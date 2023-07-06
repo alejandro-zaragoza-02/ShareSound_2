@@ -130,6 +130,7 @@
 			
 			
 			
+			
 	<Compile Include="EN\ShareSound_2\CancionEN.cs" />
 	<Compile Include="CEN\ShareSound_2\CancionCEN.cs" />
 	<Compile Include="CAD\ShareSound_2\ICancionCAD.cs" />
@@ -168,11 +169,13 @@
 			
 			
 			
+			
 	<Compile Include="EN\ShareSound_2\PlaylistEN.cs" />
 	<Compile Include="CEN\ShareSound_2\PlaylistCEN.cs" />
 	<Compile Include="CAD\ShareSound_2\IPlaylistCAD.cs" />
 	<Compile Include="CAD\ShareSound_2\PlaylistCAD.cs" />
 	<Compile Include="CP\ShareSound_2\PlaylistCP.cs" />
+			
 			
 			
 			

@@ -524,10 +524,40 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM UsuarioEN self where FROM UsuarioEN";
+                //String sql = @"FROM UsuarioEN self where SELECT usu FROM UsuarioEN as usu where usu.Email = :email";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("UsuarioENdameUsuarioPorEmailHQL");
                 query.SetParameter ("email", email);
+
+                result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is ShareSound_2GenNHibernate.Exceptions.ModelException)
+                        throw ex;
+                throw new ShareSound_2GenNHibernate.Exceptions.DataLayerException ("Error in UsuarioCAD.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
+public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN> BuscarPorNombre (string nombre)
+{
+        System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM UsuarioEN self where FROM UsuarioEN as usu where usu.Nombre LIKE :nombre";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("UsuarioENbuscarPorNombreHQL");
+                query.SetParameter ("nombre", nombre);
 
                 result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN>();
                 SessionCommit ();

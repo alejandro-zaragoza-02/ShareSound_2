@@ -267,5 +267,36 @@ public System.Collections.Generic.IList<AlbumEN> ReadAll (int first, int size)
 
         return result;
 }
+
+public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN> BuscarPorTitulo (string titulo)
+{
+        System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM AlbumEN self where FROM AlbumEN as al where al.Titulo LIKE :titulo";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("AlbumENbuscarPorTituloHQL");
+                query.SetParameter ("titulo", titulo);
+
+                result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is ShareSound_2GenNHibernate.Exceptions.ModelException)
+                        throw ex;
+                throw new ShareSound_2GenNHibernate.Exceptions.DataLayerException ("Error in AlbumCAD.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
 }
 }

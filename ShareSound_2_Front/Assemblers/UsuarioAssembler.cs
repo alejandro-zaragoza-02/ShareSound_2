@@ -21,13 +21,13 @@ namespace ShareSound_2_Front.Assemblers
             vm.Fecha = (DateTime) en.Fecha;
             vm.ImagenExt = en.Imagen;
             vm.Email = en.Email;
-            vm.AlbumsCreados = en.Albums_creados.ToList();
-            vm.AlbumsSeguidos = en.Albums_seguidos.ToList();
-            vm.PlaylistCreadas = en.Playlists_creadas.ToList();
-            vm.PlaylistSeguidas = en.Playlists_seguidas.ToList();
-            vm.CancionesGustadas = en.Canciones_gustadas.ToList();
-            vm.Seguidores = en.Seguidores.ToList();
-            vm.Seguidos = en.Seguidos.ToList();
+            vm.AlbumsCreados = new BasicAlbumAssembler().ConvertListENToModel(en.Albums_creados).ToList();
+            vm.AlbumsSeguidos = new BasicAlbumAssembler().ConvertListENToModel(en.Albums_seguidos).ToList();
+            vm.PlaylistCreadas = new BasicPlaylistAssembler().ConvertListENToModel(en.Playlists_creadas).ToList();
+            vm.PlaylistSeguidas = new BasicPlaylistAssembler().ConvertListENToModel(en.Playlists_seguidas).ToList();
+            vm.CancionesGustadas = new BasicCancionAssembler().ConvertListENToViewModel(en.Canciones_gustadas).ToList();
+            vm.Seguidores = new BasicUsuarioAssembler().ConvertListENToModel(en.Seguidores).ToList();
+            vm.Seguidos = new BasicUsuarioAssembler().ConvertListENToModel(en.Seguidos).ToList();
             vm.Comentarios = en.Comentarios.ToList();
 
             return vm;

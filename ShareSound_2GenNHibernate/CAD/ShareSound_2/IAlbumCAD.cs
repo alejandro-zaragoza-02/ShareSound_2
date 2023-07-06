@@ -29,5 +29,8 @@ AlbumEN ReadOID (int id
 
 
 System.Collections.Generic.IList<AlbumEN> ReadAll (int first, int size);
+
+
+System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN> BuscarPorTitulo (string titulo);
 }
 }

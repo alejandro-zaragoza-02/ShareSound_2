@@ -34,5 +34,7 @@ System.Collections.Generic.IList<PlaylistEN> ReadAll (int first, int size);
 void AnyadirCancion (int p_Playlist_OID, System.Collections.Generic.IList<int> p_canciones_OIDs);
 
 void QuitarCancion (int p_Playlist_OID, System.Collections.Generic.IList<int> p_canciones_OIDs);
+
+System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN> BuscarPorTitulo (string titulo);
 }
 }

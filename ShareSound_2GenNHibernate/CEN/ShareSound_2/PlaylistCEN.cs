@@ -121,5 +121,9 @@ public void QuitarCancion (int p_Playlist_OID, System.Collections.Generic.IList<
 
         _IPlaylistCAD.QuitarCancion (p_Playlist_OID, p_canciones_OIDs);
 }
+public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN> BuscarPorTitulo (string titulo)
+{
+        return _IPlaylistCAD.BuscarPorTitulo (titulo);
+}
 }
 }

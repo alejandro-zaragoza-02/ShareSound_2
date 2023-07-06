@@ -109,5 +109,9 @@ public System.Collections.Generic.IList<AlbumEN> ReadAll (int first, int size)
         list = _IAlbumCAD.ReadAll (first, size);
         return list;
 }
+public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN> BuscarPorTitulo (string titulo)
+{
+        return _IAlbumCAD.BuscarPorTitulo (titulo);
+}
 }
 }

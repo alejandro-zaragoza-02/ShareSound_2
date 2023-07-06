@@ -155,6 +155,10 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
 {
         return _IUsuarioCAD.DameUsuarioPorEmail (email);
 }
+public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN> BuscarPorNombre (string nombre)
+{
+        return _IUsuarioCAD.BuscarPorNombre (nombre);
+}
 
 
 

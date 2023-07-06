@@ -45,5 +45,8 @@ void SeguirAlbum (int p_Usuario_OID, System.Collections.Generic.IList<int> p_alb
 void DejarSeguirAlbum (int p_Usuario_OID, System.Collections.Generic.IList<int> p_albums_seguidos_OIDs);
 
 System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN> DameUsuarioPorEmail (string email);
+
+
+System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN> BuscarPorNombre (string nombre);
 }
 }

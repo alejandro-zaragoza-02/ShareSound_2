@@ -345,5 +345,35 @@ public void QuitarCancion (int p_Playlist_OID, System.Collections.Generic.IList<
                 SessionClose ();
         }
 }
+public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN> BuscarPorTitulo (string titulo)
+{
+        System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM PlaylistEN self where FROM PlaylistEN as pla where pla.Titulo LIKE :titulo";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("PlaylistENbuscarPorTituloHQL");
+                query.SetParameter ("titulo", titulo);
+
+                result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.PlaylistEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is ShareSound_2GenNHibernate.Exceptions.ModelException)
+                        throw ex;
+                throw new ShareSound_2GenNHibernate.Exceptions.DataLayerException ("Error in PlaylistCAD.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
 }
 }
