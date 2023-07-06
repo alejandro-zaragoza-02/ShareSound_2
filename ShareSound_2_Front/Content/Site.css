@@ -283,3 +283,12 @@ nav span a {
         width: auto;
         max-width: 70vw;
     }
+
+.formulario {
+    margin-top: 0.8em;
+    display: inline-flex;
+    color: black;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15em;
+}

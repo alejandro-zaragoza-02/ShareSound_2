@@ -17,14 +17,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("ShareSound", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
+
+                <form class="formulario" id="busqueda_form">
+                    <div>
+                        <input class="buscador" type="text" name="q" />
+                        <select class="select" name="clases" id="select_busqueda">
+                            <option value="artista">Artista</option>
+                            <option value="cancion">Cancion</option>
+                            <option value="album">Album</option>
+                            <option value="playlist">Playlist</option>
+                        </select>
+                        <button class="glyphicon glyphicon-search buscar"></button>
+                    </div>
+                </form>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -48,6 +56,27 @@
             </footer>
         </div>
     </div>
+
+    <script>
+    document.getElementById("busqueda_form").onsubmit = function (e) {
+        e.preventDefault();
+        let fd = new FormData(e.target);
+        switch (fd.get("clases")) {
+            case "artista":
+                location.href = 'https://localhost:44332/Artista/Busqueda/' + fd.get("q");
+                break;
+            case "cancion":
+                location.href = 'https://localhost:44332/Cancion/Busqueda/' + fd.get("q");
+                break;
+            case "album":
+                location.href = 'https://localhost:44332/Album/Busqueda/' + fd.get("q");
+                break;
+            case "playlist":
+                location.href = 'https://localhost:44332/Playlist/Busqueda/' + fd.get("q");
+                break;
+        }
+    }
+    </script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
