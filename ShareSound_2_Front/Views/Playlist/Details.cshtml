@@ -93,10 +93,10 @@
                     @item.Titulo
                 </td>
                 <td>
-                    <a href="/Playlist/Details/@Html.DisplayFor(modelItem => item.Album.Id)">@Html.DisplayFor(modelItem => item.Album.Titulo)</a>
+                    <a href="/Album/Details/@item.Album.Id">@item.Album.Titulo</a>
                 </td>
                 <td>
-                    <a href="/Usuario/Details/@item.Album.Usuario">@item.Usuario.Nombre</a>
+                    <a href="/Usuario/Details/@item.Usuario.Id">@item.Usuario.Nombre</a>
                 </td>
                 <td>
                     @{
