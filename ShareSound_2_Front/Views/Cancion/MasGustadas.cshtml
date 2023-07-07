@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShareSound_2_Front.Models.CancionViewModel>
+
+@{
+    ViewBag.Title = "MasGustadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MasGustadas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.N_likes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.N_repros)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duracion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.N_likes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.N_repros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duracion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

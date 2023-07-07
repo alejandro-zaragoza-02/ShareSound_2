@@ -43,6 +43,22 @@ namespace ShareSound_2_Front.Controllers
 
         }
 
+        [Authorize]
+        public ActionResult Explorar_playlist()
+        {
+            SessionInitialize();
+
+            PlaylistCAD playlistCAD = new PlaylistCAD(session);
+            PlaylistCEN playlistCEN = new PlaylistCEN(playlistCAD);
+
+            IList<PlaylistEN> playlists = playlistCEN.ReadAll(0, -1);
+
+            IEnumerable<ListaViewModel> vm = new PlaylistAssembler().ConvertListENToModel(playlists).ToList();
+            SessionClose();
+            return View(vm);
+
+        }
+
         // GET: Playlist/Details/5
         public ActionResult Details(int id)
         {

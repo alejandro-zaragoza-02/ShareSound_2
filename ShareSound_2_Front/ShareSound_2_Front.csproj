@@ -334,6 +334,11 @@
     <Content Include="Views\Playlist\Seguidas.cshtml" />
     <Content Include="Views\Shared\Vacio.cshtml" />
     <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Playlist\Explorar_playlist.cshtml" />
+    <Content Include="Views\Album\Explorar_album.cshtml" />
+    <Content Include="Views\Cancion\Top10.cshtml" />
+    <Content Include="Views\Cancion\Top50.cshtml" />
+    <Content Include="Views\Cancion\MasGustadas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

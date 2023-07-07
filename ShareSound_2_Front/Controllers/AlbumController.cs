@@ -33,6 +33,22 @@ namespace ShareSound_2_Front.Controllers
         }
 
         [Authorize]
+        public ActionResult Explorar_album()
+        {
+            SessionInitialize();
+
+            AlbumCAD albumCAD = new AlbumCAD(session);
+            AlbumCEN albumCEN = new AlbumCEN(albumCAD);
+
+            IList<AlbumEN> albumes = albumCEN.ReadAll(0, -1);
+
+            IEnumerable<ListaViewModel> vm = new AlbumAssembler().ConvertListENToModel(albumes).ToList();
+            SessionClose();
+            return View(vm);
+
+        }
+
+        [Authorize]
         public ActionResult Seguidos()
         {
             SessionInitialize();
