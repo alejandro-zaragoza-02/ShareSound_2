@@ -83,7 +83,14 @@
                     }
                     else
                     {
-                        <p>No tienes álbumes creados. Crea uno <a href="@Url.Action("Create", "Album")">aquí</a>.</p>
+                        if(Model.Id == Convert.ToInt32(Session["userId"]))
+                        {
+                            <p>No tienes álbumes creados. Crea uno <a href="@Url.Action("Create", "Album")">aquí</a>.</p>
+                        }
+                        else
+                        {
+                            <p>Este usuario no tiene álbumes creados.</p>
+                        }
                     }
 
                 </div>

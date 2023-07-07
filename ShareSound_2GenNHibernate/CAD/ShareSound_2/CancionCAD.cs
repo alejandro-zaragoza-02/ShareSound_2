@@ -320,7 +320,7 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM CancionEN self where FROM CancionEN as canc order by canc.Reproducciones desc";
+                //String sql = @"FROM CancionEN self where FROM CancionEN as can ORDER BY can.Reproducciones DESC";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("CancionENordenarPorReproduccionesHQL");
 
@@ -349,7 +349,7 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM CancionEN self where FROM CancionEN as can order by can.Usuarios_gustados.Count desc";
+                //String sql = @"FROM CancionEN self where FROM CancionEN as can LEFT JOIN can.Usuarios_gustados as usus GROUP BY can ORDER BY COUNT(usus) DESC";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("CancionENordenarPorMeGustasHQL");
 
@@ -378,7 +378,7 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM CancionEN self where FROM CancionEN";
+                //String sql = @"FROM CancionEN self where FROM CancionEN as canc order by canc.Reproducciones DESC";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("CancionENordenarPorTituloHQL");
 

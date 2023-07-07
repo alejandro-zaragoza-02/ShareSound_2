@@ -11,9 +11,9 @@
     {
         <div class="row">
             <div class="pull-left padding">
-                <input id="img" name="img" type="file" style="display: none;" />
+                <input id="img" name="imagen" type="file" style="display: none;" />
                 <label for="img">
-                    <img src="~/src/Usuarios/@(Model.Id + Model.ImagenExt)" alt="Imagen de Usuario" class="img-responsive img-circle user_img" />
+                    <img id="user_img" src="~/src/Usuarios/@(Model.Id + Model.ImagenExt)" alt="Imagen de Usuario" class="img-responsive img-circle user_img" />
                 </label>
             </div>
             <div class="pull-left form-horizontal">
@@ -73,4 +73,16 @@
         </div>
      }
 </main>
+
+<script>
+    document.getElementById("img").addEventListener("change", function (event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("user_img").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+</script>
 

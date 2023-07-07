@@ -5,6 +5,7 @@ using ShareSound_2GenNHibernate.CEN.ShareSound_2;
 using ShareSound_2GenNHibernate.EN.ShareSound_2;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -79,7 +80,28 @@ namespace ShareSound_2_Front.Controllers
                 UsuarioCAD userCAD = new UsuarioCAD();
                 UsuarioCEN userCEN = new UsuarioCEN(userCAD);
                 UsuarioEN user = userCEN.ReadOID(id);
-                userCEN.Modify(id, user.Pass, vm.Nombre, vm.Descripcion, user.Imagen, user.Email, user.Fecha);
+
+                if(vm.Descripcion == null)
+                {
+                    vm.Descripcion = "";
+                }
+
+                string ext = "";
+                if (vm.Imagen != null)
+                {
+                    ext = Path.GetExtension(vm.Imagen.FileName);
+                }
+                else
+                {
+                    ext = user.Imagen;
+                }
+
+                userCEN.Modify(id, user.Pass, vm.Nombre, vm.Descripcion, ext, user.Email, user.Fecha);
+
+                if (vm.Imagen != null)
+                {
+                    vm.Imagen.SaveAs(Server.MapPath("~/src/Usuarios/" + id + ext));
+                }
 
                 return RedirectToAction("Details", new { id = id });
             }
