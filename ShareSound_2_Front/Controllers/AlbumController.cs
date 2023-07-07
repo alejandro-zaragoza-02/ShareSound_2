@@ -292,5 +292,24 @@ namespace ShareSound_2_Front.Controllers
             userCEN.DejarSeguirAlbum(user.Id, albums);
             return RedirectToAction("Details", "Album", new { id = id });
         }
+
+        public ActionResult Buscador(string nombre)
+        {
+            SessionInitialize();
+            AlbumCAD albumCAD = new AlbumCAD(session);
+            AlbumCEN albumCEN = new AlbumCEN(albumCAD);
+
+            string cadena = HttpContext.Request.Url.AbsoluteUri;
+            string[] Separado = cadena.Split('/');
+            string Final = Separado[Separado.Length - 1];
+
+            IList<AlbumEN> cancion = new List<AlbumEN>();
+            cancion = albumCEN.BuscarPorTitulo(Final);
+
+            IEnumerable<ListaViewModel> list = new AlbumAssembler().ConvertListENToModel(cancion).ToList();
+            SessionClose();
+
+            return View(list);
+        }
     }
 }

@@ -146,5 +146,24 @@ namespace ShareSound_2_Front.Controllers
             userCEN.DejarSeguirUsuario(user.Id, users);
             return RedirectToAction("Details", "Usuario", new { id = id });
         }
+
+        public ActionResult Buscador(string nombre)
+        {
+            SessionInitialize();
+            UsuarioCAD usuarioCAD = new UsuarioCAD(session);
+            UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioCAD);
+
+            string cadena = HttpContext.Request.Url.AbsoluteUri;
+            string[] Separado = cadena.Split('/');
+            string Final = Separado[Separado.Length - 1];
+
+            IList<UsuarioEN> cancion = new List<UsuarioEN>();
+            cancion = usuarioCEN.BuscarPorNombre(Final);
+
+            IEnumerable<UsuarioViewModel> list = new UsuarioAssembler().ConvertListENToModel(cancion).ToList();
+            SessionClose();
+
+            return View(list);
+        }
     }
 }

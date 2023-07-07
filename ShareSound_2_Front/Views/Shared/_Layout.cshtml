@@ -62,16 +62,16 @@
         let fd = new FormData(e.target);
         switch (fd.get("clases")) {
             case "artista":
-                location.href = 'https://localhost:44332/Artista/Busqueda/' + fd.get("q");
+                location.href = 'https://localhost:44332/Usuario/Buscador/' + fd.get("q");
                 break;
             case "cancion":
-                location.href = 'https://localhost:44332/Cancion/Busqueda/' + fd.get("q");
+                location.href = 'https://localhost:44332/Cancion/Buscador/' + fd.get("q");
                 break;
             case "album":
-                location.href = 'https://localhost:44332/Album/Busqueda/' + fd.get("q");
+                location.href = 'https://localhost:44332/Album/Buscador/' + fd.get("q");
                 break;
             case "playlist":
-                location.href = 'https://localhost:44332/Playlist/Busqueda/' + fd.get("q");
+                location.href = 'https://localhost:44332/Playlist/Buscador/' + fd.get("q");
                 break;
         }
     }

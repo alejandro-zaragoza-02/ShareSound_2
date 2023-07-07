@@ -234,5 +234,24 @@ namespace ShareSound_2_Front.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Buscador(string nombre)
+        {
+            SessionInitialize();
+            CancionCAD cancionCAD = new CancionCAD(session);
+            CancionCEN cancionCEN = new CancionCEN(cancionCAD);
+
+           string cadena = HttpContext.Request.Url.AbsoluteUri;
+            string[] Separado = cadena.Split('/');
+            string Final = Separado[Separado.Length - 1];
+
+            IList<CancionEN> cancion = new List<CancionEN>();
+            cancion = cancionCEN.BuscarPorTitulo(Final);
+
+            IEnumerable<CancionViewModel> list = new CancionAssembler().ConvertListENToViewModel(cancion).ToList();
+            SessionClose();
+
+            return View(list);
+        }
     }
 }

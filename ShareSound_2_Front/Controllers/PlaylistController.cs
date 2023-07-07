@@ -283,5 +283,24 @@ namespace ShareSound_2_Front.Controllers
 
             return RedirectToAction("Details", "Playlist", new { id = play_id });
         }
+
+        public ActionResult Buscador(string nombre)
+        {
+            SessionInitialize();
+            PlaylistCAD playlistCAD = new PlaylistCAD(session);
+            PlaylistCEN playlistCEN = new PlaylistCEN(playlistCAD);
+
+            string cadena = HttpContext.Request.Url.AbsoluteUri;
+            string[] Separado = cadena.Split('/');
+            string Final = Separado[Separado.Length - 1];
+
+            IList<PlaylistEN> cancion = new List<PlaylistEN>();
+            cancion = playlistCEN.BuscarPorTitulo(Final);
+
+            IEnumerable<ListaViewModel> list = new PlaylistAssembler().ConvertListENToModel(cancion).ToList();
+            SessionClose();
+
+            return View(list);
+        }
     }
 }
