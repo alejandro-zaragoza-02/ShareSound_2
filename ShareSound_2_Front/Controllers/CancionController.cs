@@ -31,6 +31,45 @@ namespace ShareSound_2_Front.Controllers
             return View(vm);
         }
 
+        public ActionResult Top10()
+        {
+            SessionInitialize();
+            CancionCAD cancionCAD = new CancionCAD(session);
+            CancionCEN cancionCEN = new CancionCEN(cancionCAD);
+
+            IList<CancionEN> canciones = cancionCEN.OrdenarPorReproducciones();
+
+            IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(10);
+            SessionClose();
+            return View(vm);
+        }
+
+        public ActionResult Top50()
+        {
+            SessionInitialize();
+            CancionCAD cancionCAD = new CancionCAD(session);
+            CancionCEN cancionCEN = new CancionCEN(cancionCAD);
+
+            IList<CancionEN> canciones = cancionCEN.OrdenarPorReproducciones();
+
+            IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(50);
+            SessionClose();
+            return View(vm);
+        }
+
+        public ActionResult MasGustadas()
+        {
+            SessionInitialize();
+            CancionCAD cancionCAD = new CancionCAD(session);
+            CancionCEN cancionCEN = new CancionCEN(cancionCAD);
+
+            IList<CancionEN> canciones = cancionCEN.OrdenarPorMeGustas();
+
+            IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(100);
+            SessionClose();
+            return View(vm);
+        }
+
         // GET: Cancion/Details/5
         public ActionResult Details(int id)
         {

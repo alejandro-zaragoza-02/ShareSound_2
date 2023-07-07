@@ -84,12 +84,11 @@
 					
 					
 		
-		 </class>	
-		  
-		  <query name="CancionENReadAllHQL">from CancionEN</query>
-		  <query name="CancionENbuscarPorTituloHQL"><![CDATA[FROM CancionEN as can where can.Titulo LIKE :titulo]]></query>
-		  <query name="CancionENordenarPorReproduccionesHQL"><![CDATA[FROM CancionEN as canc order by canc.Reproducciones desc]]></query>
-		  <query name="CancionENordenarPorMeGustasHQL"><![CDATA[FROM CancionEN]]></query>
-		  <query name="CancionENordenarPorTituloHQL"><![CDATA[FROM CancionEN]]></query>
+		 </class>
+
+			<query name="CancionENbuscarPorTituloHQL"><![CDATA[FROM CancionEN as can where can.Titulo LIKE :titulo]]></query>
+			<query name="CancionENordenarPorReproduccionesHQL"><![CDATA[FROM CancionEN as can ORDER BY can.Reproducciones DESC]]></query>
+			<query name="CancionENordenarPorMeGustasHQL"><![CDATA[FROM CancionEN as can LEFT JOIN can.Usuarios_gustados as usus GROUP BY can ORDER BY COUNT(usus) DESC]]></query>
+			<query name="CancionENordenarPorTituloHQL"><![CDATA[FROM CancionEN as canc order by canc.Reproducciones DESC]]></query>
 		</hibernate-mapping>
 	
