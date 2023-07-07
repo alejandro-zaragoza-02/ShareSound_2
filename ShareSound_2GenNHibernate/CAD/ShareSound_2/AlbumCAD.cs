@@ -277,7 +277,7 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
                 //String sql = @"FROM AlbumEN self where FROM AlbumEN as al where al.Titulo LIKE :titulo";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("AlbumENbuscarPorTituloHQL");
-                query.SetParameter ("titulo", titulo);
+                query.SetParameter ("titulo", "%" + titulo + "%");
 
                 result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.AlbumEN>();
                 SessionCommit ();

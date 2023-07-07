@@ -557,7 +557,7 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
                 //String sql = @"FROM UsuarioEN self where FROM UsuarioEN as usu where usu.Nombre LIKE :nombre";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("UsuarioENbuscarPorNombreHQL");
-                query.SetParameter ("nombre", nombre);
+                query.SetParameter ("nombre", "%" + nombre + "%");
 
                 result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.UsuarioEN>();
                 SessionCommit ();
