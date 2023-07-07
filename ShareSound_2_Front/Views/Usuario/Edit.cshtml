@@ -1,0 +1,76 @@
+﻿@model ShareSound_2_Front.Models.UsuarioViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editar perfil</h2>
+<hr />
+<main class="margin">
+    @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form-horizontal", role = "form", Enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="pull-left padding">
+                <input id="img" name="img" type="file" style="display: none;" />
+                <label for="img">
+                    <img src="~/src/Usuarios/@(Model.Id + Model.ImagenExt)" alt="Imagen de Usuario" class="img-responsive img-circle user_img" />
+                </label>
+            </div>
+            <div class="pull-left form-horizontal">
+                <div class="form-group">
+                    <label for="nombre" class="col-md-4 control-label">Nombre:</label>
+                    <div class="col-md-8">
+                        <input id="nombre" name="nombre" type="text" value="@Model.Nombre" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="col-md-4 control-label">Descripcion:</label>
+                    <div class="col-md-8">
+                        <textarea id="descripcion" name="descripcion" class="form-control">@Model.Descripcion</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" value="Confirmar" class="btn btn-default margin" />
+                        @Html.ActionLink("Volver", "Details", new { id = Model.Id })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group margin" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <div>Álbumes</div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        @foreach (var item in Model.AlbumsCreados)
+                        {
+                            <a class="col-lg-3 col-md-6 col-sm-12" href="@Url.Action("Details","Album", new { id = item.Id })">
+                                <div class="text-center">
+                                    @{
+                                        if (item.ImagenExt == "")
+                                        {
+                                            <img src="~/src/Albumes/noimg.jpg" class="img_list" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/src/Albumes/@(item.Id + item.ImagenExt)" class="img_list" />
+                                        }
+                                    }
+                                </div>
+                                <p class="text-center">@(item.Titulo)</p>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+     }
+</main>
+

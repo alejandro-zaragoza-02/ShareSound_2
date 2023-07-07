@@ -339,6 +339,7 @@
     <Content Include="Views\Cancion\Top10.cshtml" />
     <Content Include="Views\Cancion\Top50.cshtml" />
     <Content Include="Views\Cancion\MasGustadas.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

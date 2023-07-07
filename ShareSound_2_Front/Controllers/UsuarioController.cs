@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ShareSound_2_Front.Controllers
 {
+    [Authorize]
     public class UsuarioController : BasicController
     {
         // GET: Usuario
@@ -58,22 +59,33 @@ namespace ShareSound_2_Front.Controllers
         // GET: Usuario/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SessionInitialize();
+            IUsuarioCAD userCAD = new UsuarioCAD(session);
+            UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+
+            UsuarioEN user = userCEN.ReadOID(id);
+            UsuarioViewModel vm = new UsuarioAssembler().ConvertENToModelUI(user);
+
+            SessionClose();
+            return View(vm);
         }
 
         // POST: Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, UsuarioViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                UsuarioCAD userCAD = new UsuarioCAD();
+                UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+                UsuarioEN user = userCEN.ReadOID(id);
+                userCEN.Modify(id, user.Pass, vm.Nombre, vm.Descripcion, user.Imagen, user.Email, user.Fecha);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = id });
             }
             catch
             {
-                return View();
+                return RedirectToAction("Details", new { id = id });
             }
         }
 

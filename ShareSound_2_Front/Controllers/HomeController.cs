@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ShareSound_2_Front.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()

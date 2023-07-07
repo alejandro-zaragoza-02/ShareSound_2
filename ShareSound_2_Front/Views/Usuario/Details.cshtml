@@ -18,11 +18,12 @@
                 <span class="label label-default padding">Seguidores:  @Model.Seguidores.Count</span>
                 <span class="label label-default padding">Siguiendo:  @Model.Seguidos.Count</span>
             </div>
+            <br />
             <div>
                 @{
                     if (Model.Id == Convert.ToInt32(Session["userId"]))
                     {
-                        
+                        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
                     }
                     else
                     {
@@ -59,24 +60,32 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-                    @foreach (var item in Model.AlbumsCreados)
+                    @if (Model.AlbumsCreados.Count > 0)
                     {
-                        <a class="col-lg-3 col-md-6 col-sm-12" href="@Url.Action("Details","Album", new { id = item.Id })">
-                            <div class="text-center">
-                                @{
-                                    if (item.ImagenExt == "")
-                                    {
-                                        <img src="~/src/Albumes/noimg.jpg" class="img_list" />
+                        foreach (var item in Model.AlbumsCreados)
+                        {
+                            <a class="col-lg-3 col-md-6 col-sm-12" href="@Url.Action("Details","Album", new { id = item.Id })">
+                                <div class="text-center">
+                                    @{
+                                        if (item.ImagenExt == "")
+                                        {
+                                            <img src="~/src/Albumes/noimg.jpg" class="img_list" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/src/Albumes/@(item.Id + item.ImagenExt)" class="img_list" />
+                                        }
                                     }
-                                    else
-                                    {
-                                        <img src="~/src/Albumes/@(item.Id + item.ImagenExt)" class="img_list" />
-                                    }
-                                }
-                            </div>
-                            <p class="text-center">@(item.Titulo)</p>
-                        </a>
+                                </div>
+                                <p class="text-center">@(item.Titulo)</p>
+                            </a>
+                        }
                     }
+                    else
+                    {
+                        <p>No tienes álbumes creados. Crea uno <a href="@Url.Action("Create", "Album")">aquí</a>.</p>
+                    }
+
                 </div>
             </div>
         </div>
