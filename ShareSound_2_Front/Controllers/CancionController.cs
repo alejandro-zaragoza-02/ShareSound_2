@@ -162,8 +162,15 @@ namespace ShareSound_2_Front.Controllers
 
                 album_id = cancion.Album.Id;
 
-                FileInfo file = new FileInfo(Server.MapPath("~/src/Canciones/" + id + cancion.Fichero));
-                file.Delete();
+                try
+                {
+                    FileInfo file = new FileInfo(Server.MapPath("~/src/Canciones/" + id + cancion.Fichero));
+                    file.Delete();
+                }
+                catch
+                {
+                    // El archivo ya esta borrado
+                }
 
                 SessionClose();
 
@@ -180,29 +187,8 @@ namespace ShareSound_2_Front.Controllers
             return RedirectToAction("Edit", "Album", new { id = album_id });
         }
 
-        // POST: Cancion/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, CancionViewModel vm)
-        {
-            try
-            {
-                CancionCAD cancionCAD = new CancionCAD();
-                CancionCEN cancionCEN = new CancionCEN(cancionCAD);
 
-                FileInfo file = new FileInfo(Server.MapPath("~/src/Canciones/" + id + vm.Fichero_mp3));
-                file.Delete();
-
-                cancionCEN.Destroy(id);
-            }
-            catch
-            {
-                // No se hace nada
-            }
-
-            return RedirectToAction("Edit", "Album", new { id = id });
-        }
-
-        public ActionResult Like(int id, string ctl, int idLista)
+        public ActionResult Like(int id, string ctl, string act, int idLista)
         {
             try
             {
@@ -227,7 +213,14 @@ namespace ShareSound_2_Front.Controllers
 
                 cancionCEN.RecibirMeGusta(id, users);
 
-                return RedirectToAction("Details", ctl, new { id = idLista });
+                if (idLista != 0)
+                {
+                    return RedirectToAction(act, ctl, new { id = idLista });
+                }
+                else
+                {
+                    return RedirectToAction(act, ctl);
+                }
             }
             catch
             {
@@ -236,7 +229,7 @@ namespace ShareSound_2_Front.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult UnLike(int id, string ctl, int idLista)
+        public ActionResult UnLike(int id, string ctl, string act, int idLista)
         {
             try
             {
@@ -261,7 +254,15 @@ namespace ShareSound_2_Front.Controllers
 
                 cancionCEN.QuitarMeGusta(id, users);
 
-                return RedirectToAction("Details", ctl, new { id = idLista });
+                if(idLista != 0)
+                {
+                    return RedirectToAction(act, ctl, new { id = idLista });
+                }
+                else
+                {
+                    return RedirectToAction(act, ctl);
+                }
+
             }
             catch
             {
@@ -270,13 +271,35 @@ namespace ShareSound_2_Front.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Liked()
+        {
+            SessionInitialize();
+            UsuarioCAD userCAD = new UsuarioCAD(session);
+            UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+            UsuarioEN user = userCEN.ReadOID(Convert.ToInt32(Session["userId"]));
+
+            Dictionary<int, string> playlists = new Dictionary<int, string>();
+
+            foreach (PlaylistEN playlist in user.Playlists_creadas)
+            {
+                playlists.Add(playlist.Id, playlist.Titulo);
+            }
+
+            ViewData["idPlaylistSelected"] = playlists;
+
+            List<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(user.Canciones_gustadas).ToList();
+            SessionClose();
+
+            return View(vm);
+        } 
+
         public ActionResult Buscador(string nombre)
         {
             SessionInitialize();
             CancionCAD cancionCAD = new CancionCAD(session);
             CancionCEN cancionCEN = new CancionCEN(cancionCAD);
 
-           string cadena = HttpContext.Request.Url.AbsoluteUri;
+            string cadena = HttpContext.Request.Url.AbsoluteUri;
             string[] Separado = cadena.Split('/');
             string Final = Separado[Separado.Length - 1];
 

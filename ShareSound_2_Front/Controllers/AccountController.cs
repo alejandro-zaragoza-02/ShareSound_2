@@ -162,7 +162,7 @@ namespace ShareSound_2_Front.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (true)
+            if (!ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -176,7 +176,7 @@ namespace ShareSound_2_Front.Controllers
                     }
 
                     UsuarioCEN userCEN = new UsuarioCEN();
-                    String ext = Path.GetExtension(model.Imagen.FileName);
+                    string ext = Path.GetExtension(model.Imagen.FileName);
                     int user_id = userCEN.New_(model.Password, model.Nombre, model.Descripcion, ext, model.Email, model.Fecha);
                     model.Imagen.SaveAs(Server.MapPath("~/src/Usuarios/" + user_id + ext));
                     Session["userId"] = user_id;

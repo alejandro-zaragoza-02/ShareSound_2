@@ -154,10 +154,7 @@ nav span a {
 
 .reproductor {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 1em;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -168,6 +165,14 @@ nav span a {
     width: 100%;
     background-color: black;
     z-index: 2;
+}
+
+.repro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
 }
 
 .repro_btn {
@@ -183,6 +188,25 @@ nav span a {
     width: 100%;
     justify-content: center;
     gap: 1em;
+}
+
+.repro_vol {
+    display: flex;
+    justify-content: right;
+}
+
+.volDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    max-width: 3em;
+    overflow: hidden;
+    transition: 1s;
+}
+
+.volDiv:hover{
+    max-width: max-content;
 }
 
 .musica {

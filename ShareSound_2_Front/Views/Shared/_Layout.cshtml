@@ -46,21 +46,31 @@
             <a href="@Url.Action("Index","Album")" class="list-group-item ripple">Mis albumes</a>
             <a href="@Url.Action("Seguidas","Playlist")" class="list-group-item ripple">Playlists seguidas</a>
             <a href="@Url.Action("Seguidos","Album")" class="list-group-item ripple">Albumes seguidos</a>
+            <a href="@Url.Action("Liked","Cancion")" class="list-group-item ripple">Canciones que te gustans</a>
         </nav>
         <div class="container body-content col-lg-10 col-md-10">
             @RenderBody()
             <hr />
-            <div class="reproductor">
-                <div class="repro_btn">
-                    <button id="cancion_atras" type="button" class="btn btn-primary" onclick="previusBtn()"><span class="glyphicon glyphicon-fast-backward"></span></button>
-                    <button id="cancion_reanudar" type="button" class="btn btn-primary" onclick="playBtn()"><span class="glyphicon glyphicon-play"></span></button>
-                    <button id="cancion_pausar" type="button" class="btn btn-primary" onclick="pauseBtn()" style="display: none;"><span class="glyphicon glyphicon-pause"></span></button>
-                    <button id="cancion_siguiente" type="button" class="btn btn-primary" onclick="nextBtn()"><span class="glyphicon glyphicon-fast-forward"></span></button>
+            <div class="reproductor row">
+                <div id="songName" class="col-lg-3"><p class="margin">Prueba</p></div>
+                <div class="repro col-lg-6">
+                    <div class="repro_btn">
+                        <button id="cancion_atras" type="button" class="btn btn-primary" onclick="previusBtn()"><span class="glyphicon glyphicon-fast-backward"></span></button>
+                        <button id="cancion_reanudar" type="button" class="btn btn-primary" onclick="playBtn()"><span class="glyphicon glyphicon-play"></span></button>
+                        <button id="cancion_pausar" type="button" class="btn btn-primary" onclick="pauseBtn()" style="display: none;"><span class="glyphicon glyphicon-pause"></span></button>
+                        <button id="cancion_siguiente" type="button" class="btn btn-primary" onclick="nextBtn()"><span class="glyphicon glyphicon-fast-forward"></span></button>
+                    </div>
+                    <div class="repro_inp">
+                        <span id="durIni">0</span>
+                        <input id="repro_range" type="range" min="0" max="100" step="1" value="0" disabled />
+                        <span id="durFin">0</span>
+                    </div>
                 </div>
-                <div class="repro_inp">
-                    <span id="durIni">0</span>
-                    <input id="repro_range" type="range" min="0" max="100" step="1" value="0" disabled />
-                    <span id="durFin">0</span>
+                <div class="col-lg-3 repro_vol">
+                    <div class="volDiv">
+                        <span class="btn btn-primary glyphicon glyphicon-volume-up"></span>
+                        <input id="repro_vol" type="range" min="0" max="100" step="1" value="100" oninput="changeVolume(event)" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,6 +99,11 @@
             }
         }
 
+        function changeVolume(evt) {
+            localStorage['songVol'] = evt.target.value / 100;
+            document.getElementById('song_' + sessionStorage['songId']).volume = localStorage['songVol'];
+        }
+
         function nextBtn() {
             clearInterval(intervalSong);
             if (nextSong && nextSong.length == 2) {
@@ -115,10 +130,11 @@
         }
 
         function playBtnList(id, dur) {
-            document.querySelector('.reproductor').style.maxHeight = '10vh';
             clearInterval(intervalSong);
+            document.querySelector('.reproductor').style.maxHeight = '10vh';
             sessionStorage['songId'] = id;
             sessionStorage['songDur'] = dur;
+            sessionStorage['songName'] = document.getElementById('song_' + id).getAttribute('songTitle');
             document.getElementById('cancion_reanudar').style.display = 'none';
             document.getElementById('cancion_pausar').style.display = 'inline';
             let found = false;
@@ -157,10 +173,12 @@
             } else {
                 document.getElementById('cancion_atras').disabled = false;
             }
+            document.getElementById('songName').innerHTML = '<p class="margin">' + sessionStorage['songName'] + '</p>';
             document.getElementById('durIni').textContent = 0;
             document.getElementById('repro_range').value = 0;
             document.getElementById('repro_range').max = dur;
             document.getElementById('durFin').textContent = dur;
+            document.getElementById('song_' + id).volume = localStorage['songVol'];
             document.getElementById('song_' + id).play();
             let sec = 0;
             intervalSong = setInterval(function () {
@@ -171,6 +189,14 @@
                     nextBtn();
                 }
             }, 1000);
+        }
+
+        function compartir() {
+            navigator.clipboard.writeText(location.href).then(() => {
+                alert('La dirección se ha copiado correctamente en el portapapeles.')
+            }).catch(err => {
+                alert('No se ha podido copiar el link');
+            });
         }
 
         document.getElementById("busqueda_form").onsubmit = function (e) {

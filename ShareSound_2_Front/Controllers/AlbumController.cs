@@ -227,7 +227,6 @@ namespace ShareSound_2_Front.Controllers
 
                 albumCEN.Destroy(id);
                 
-
                 return RedirectToAction("Index", "Album");
             }
             catch

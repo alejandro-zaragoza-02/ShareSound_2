@@ -53,7 +53,7 @@
             {
                 <tr songId="@Html.DisplayFor(modelItem => item.Id)">
                     <td>
-                        <a href="/Cancion/Details/@(item.Id)">@item.Titulo</a>
+                        @item.Titulo
                     </td>
                     <td>
                         <a href="/Album/Details/@Html.DisplayFor(modelItem => item.Album.Id)">@Html.DisplayFor(modelItem => item.Album.Titulo)</a>
@@ -71,7 +71,7 @@
                         @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default" id="btnDelete" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-danger" id="btnDelete" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                     </td>
                 </tr>
 

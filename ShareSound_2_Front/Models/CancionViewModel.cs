@@ -30,7 +30,8 @@ namespace ShareSound_2_Front.Models
 
         public int Duracion { get; set; }
 
-        [ScaffoldColumn(false)]
+
+        [Required(ErrorMessage = "Debe elegir un álbum válido")]
         public string idAlbumSeleccionado { get; set; }
 
         public BasicListaViewModel Album { get; set; }

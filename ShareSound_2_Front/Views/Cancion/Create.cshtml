@@ -33,6 +33,7 @@
             @Html.LabelFor(model => model.idAlbumSeleccionado, new { @class = "col-md-2 control-label" })
             <div style="color:black;" class="col-md-10">
                 @Html.DropDownListFor(model => model.idAlbumSeleccionado, ViewData["idAlbumSeleccionado"] as SelectList, "Selecciona un álbum")
+                @Html.ValidationMessageFor(model => model.idAlbumSeleccionado, "", new { @class = "text-danger" })
             </div>
         </div>
 
