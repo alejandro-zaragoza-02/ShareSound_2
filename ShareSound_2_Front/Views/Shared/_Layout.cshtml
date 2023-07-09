@@ -50,31 +50,147 @@
         <div class="container body-content col-lg-10 col-md-10">
             @RenderBody()
             <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-            </footer>
+            <div class="reproductor">
+                <div class="repro_btn">
+                    <button id="cancion_atras" type="button" class="btn btn-primary" onclick="previusBtn()"><span class="glyphicon glyphicon-fast-backward"></span></button>
+                    <button id="cancion_reanudar" type="button" class="btn btn-primary" onclick="playBtn()"><span class="glyphicon glyphicon-play"></span></button>
+                    <button id="cancion_pausar" type="button" class="btn btn-primary" onclick="pauseBtn()" style="display: none;"><span class="glyphicon glyphicon-pause"></span></button>
+                    <button id="cancion_siguiente" type="button" class="btn btn-primary" onclick="nextBtn()"><span class="glyphicon glyphicon-fast-forward"></span></button>
+                </div>
+                <div class="repro_inp">
+                    <span id="durIni">0</span>
+                    <input id="repro_range" type="range" min="0" max="100" step="1" value="0" disabled />
+                    <span id="durFin">0</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-    document.getElementById("busqueda_form").onsubmit = function (e) {
-        e.preventDefault();
-        let fd = new FormData(e.target);
-        switch (fd.get("clases")) {
-            case "artista":
-                location.href = 'https://localhost:44332/Usuario/Buscador/' + fd.get("q");
-                break;
-            case "cancion":
-                location.href = 'https://localhost:44332/Cancion/Buscador/' + fd.get("q");
-                break;
-            case "album":
-                location.href = 'https://localhost:44332/Album/Buscador/' + fd.get("q");
-                break;
-            case "playlist":
-                location.href = 'https://localhost:44332/Playlist/Buscador/' + fd.get("q");
-                break;
+
+        let nextSong = [];
+        let previusSong = [];
+        let intervalSong = -1;
+
+        function playBtn() {
+            if (sessionStorage['songId'] && sessionStorage['songDur'] && sessionStorage['songSec']) {
+                document.getElementById('cancion_reanudar').style.display = 'none';
+                document.getElementById('cancion_pausar').style.display = 'inline';
+                document.getElementById('song_' + sessionStorage['songId']).play();
+                let sec = sessionStorage['songSec'];
+                intervalSong = setInterval(function () {
+                    sec++;
+                    document.getElementById('repro_range').value = sec;
+                    document.getElementById('durIni').textContent = sec;
+                    if (sec >= sessionStorage['songDur']) {
+                        clearInterval(intervalSong);
+                    }
+                }, 1000);
+            }
         }
-    }
+
+        function nextBtn() {
+            clearInterval(intervalSong);
+            if (nextSong && nextSong.length == 2) {
+                playBtnList(nextSong[0], nextSong[1]);
+            }
+        }
+
+        function previusBtn() {
+            clearInterval(intervalSong);
+            if (previusSong && previusSong.length == 2) {
+                playBtnList(previusSong[0], previusSong[1]);
+            }
+        }
+
+
+        function pauseBtn() {
+            sessionStorage['songSec'] = document.getElementById('durIni').textContent;
+            document.getElementById('cancion_pausar').style.display = 'none';
+            document.getElementById('cancion_reanudar').style.display = 'inline';
+            if (sessionStorage['songId']) {
+                document.getElementById('song_' + sessionStorage['songId']).pause();
+                clearInterval(intervalSong);
+            }
+        }
+
+        function playBtnList(id, dur) {
+            document.querySelector('.reproductor').style.maxHeight = '10vh';
+            clearInterval(intervalSong);
+            sessionStorage['songId'] = id;
+            sessionStorage['songDur'] = dur;
+            document.getElementById('cancion_reanudar').style.display = 'none';
+            document.getElementById('cancion_pausar').style.display = 'inline';
+            let found = false;
+            let found2 = false;
+            nextSong = [];
+            previusSong = [];
+            document.querySelectorAll('audio').forEach(audio => {
+                if (audio.played) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                if (found) {
+                    nextSong[0] = audio.id.replace("song_", "");
+                    nextSong[1] = audio.getAttribute('dur');
+                    found = false;
+                }
+                if (audio.id == 'song_' + id) {
+                    found = true;
+                    found2 = true;
+                    document.getElementById('play_' + audio.id.replace("song_", "")).disabled = true;
+                } else {
+                    document.getElementById('play_' + audio.id.replace("song_", "")).disabled = false;
+                }
+                if (!found2) {
+                    previusSong[0] = audio.id.replace("song_", "");
+                    previusSong[1] = audio.getAttribute('dur');
+                }
+            })
+            if (nextSong.length != 2) {
+                document.getElementById('cancion_siguiente').disabled = true;
+            } else {
+                document.getElementById('cancion_siguiente').disabled = false;
+            }
+            if (previusSong.length != 2) {
+                document.getElementById('cancion_atras').disabled = true;
+            } else {
+                document.getElementById('cancion_atras').disabled = false;
+            }
+            document.getElementById('durIni').textContent = 0;
+            document.getElementById('repro_range').value = 0;
+            document.getElementById('repro_range').max = dur;
+            document.getElementById('durFin').textContent = dur;
+            document.getElementById('song_' + id).play();
+            let sec = 0;
+            intervalSong = setInterval(function () {
+                sec++;
+                document.getElementById('repro_range').value = sec;
+                document.getElementById('durIni').textContent = sec;
+                if (sec >= dur) {
+                    nextBtn();
+                }
+            }, 1000);
+        }
+
+        document.getElementById("busqueda_form").onsubmit = function (e) {
+            e.preventDefault();
+            let fd = new FormData(e.target);
+            switch (fd.get("clases")) {
+                case "artista":
+                    location.href = 'https://localhost:44332/Usuario/Buscador/' + fd.get("q");
+                    break;
+                case "cancion":
+                    location.href = 'https://localhost:44332/Cancion/Buscador/' + fd.get("q");
+                    break;
+                case "album":
+                    location.href = 'https://localhost:44332/Album/Buscador/' + fd.get("q");
+                    break;
+                case "playlist":
+                    location.href = 'https://localhost:44332/Playlist/Buscador/' + fd.get("q");
+                    break;
+            }
+        }
     </script>
 
     @Scripts.Render("~/bundles/jquery")

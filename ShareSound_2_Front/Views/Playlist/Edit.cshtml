@@ -84,12 +84,11 @@
                                 <h4 class="modal-title" id="myModalLabel">Eliminar álbum</h4>
                             </div>
                             <div class="modal-body">
-                                ¿Estás seguro de que quieres eliminar este álbum?<br />
-                                <i>Nota: esto eliminará también todas las canciones añadidas al álbum</i>
+                                ¿Estás seguro de que quieres quitar esta canción?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <a href="@Url.Action("Delete", "Cancion", new { id = item.Id })" class="btn btn-danger">Eliminar</a>
+                                <a href="@Url.Action("Remove", new { play_id = Model.Id, song_id = item.Id })" class="btn btn-danger">Eliminar</a>
                             </div>
                         </div>
                     </div>

@@ -43,7 +43,6 @@ namespace ShareSound_2_Front.Controllers
 
         }
 
-        [Authorize]
         public ActionResult Explorar_playlist()
         {
             SessionInitialize();
@@ -282,6 +281,16 @@ namespace ShareSound_2_Front.Controllers
             playlistCEN.AnyadirCancion(play_id, new List<int> { song_id });
 
             return RedirectToAction("Details", "Playlist", new { id = play_id });
+        }
+
+        public ActionResult Remove(int play_id, int song_id)
+        {
+            PlaylistCAD playlistCAD = new PlaylistCAD();
+            PlaylistCEN playlistCEN = new PlaylistCEN(playlistCAD);
+
+            playlistCEN.QuitarCancion(play_id, new List<int> { song_id });
+
+            return RedirectToAction("Edit", "Playlist", new { id = play_id });
         }
 
         public ActionResult Buscador(string nombre)

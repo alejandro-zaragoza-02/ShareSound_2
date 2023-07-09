@@ -153,15 +153,36 @@ nav span a {
 }
 
 .reproductor {
-    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 14%;
+    overflow: hidden;
+    transition: .5s;
+    max-height: 0;
+    height: 100%;
     width: 100%;
     background-color: black;
-    text-align: center;
     z-index: 2;
+}
+
+.repro_btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
+
+.repro_inp{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 1em;
 }
 
 .musica {

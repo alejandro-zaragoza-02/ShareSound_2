@@ -202,7 +202,7 @@ namespace ShareSound_2_Front.Controllers
             return RedirectToAction("Edit", "Album", new { id = id });
         }
 
-        public ActionResult Like(int id)
+        public ActionResult Like(int id, string ctl, int idLista)
         {
             try
             {
@@ -211,8 +211,6 @@ namespace ShareSound_2_Front.Controllers
                 CancionCEN cancionCEN = new CancionCEN(cancionCAD);
 
                 CancionEN cancion = cancionCEN.ReadOID(id);
-
-                int album_id = cancion.Album.Id;
 
                 cancionCAD = new CancionCAD();
                 cancionCEN = new CancionCEN(cancionCAD);
@@ -229,7 +227,7 @@ namespace ShareSound_2_Front.Controllers
 
                 cancionCEN.RecibirMeGusta(id, users);
 
-                return RedirectToAction("Details", "Album", new { id = album_id });
+                return RedirectToAction("Details", ctl, new { id = idLista });
             }
             catch
             {
@@ -238,7 +236,7 @@ namespace ShareSound_2_Front.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult UnLike(int id)
+        public ActionResult UnLike(int id, string ctl, int idLista)
         {
             try
             {
@@ -247,8 +245,6 @@ namespace ShareSound_2_Front.Controllers
                 CancionCEN cancionCEN = new CancionCEN(cancionCAD);
 
                 CancionEN cancion = cancionCEN.ReadOID(id);
-
-                int album_id = cancion.Album.Id;
 
                 cancionCAD = new CancionCAD();
                 cancionCEN = new CancionCEN(cancionCAD);
@@ -265,7 +261,7 @@ namespace ShareSound_2_Front.Controllers
 
                 cancionCEN.QuitarMeGusta(id, users);
 
-                return RedirectToAction("Details", "Album", new { id = album_id });
+                return RedirectToAction("Details", ctl, new { id = idLista });
             }
             catch
             {
