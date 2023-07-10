@@ -172,6 +172,12 @@ namespace ShareSound_2_Front.Controllers
                     // El archivo ya esta borrado
                 }
 
+                PlaylistCEN playlistCEN = new PlaylistCEN();
+                foreach(PlaylistEN playlist in cancion.Playlists)
+                {
+                    playlistCEN.QuitarCancion(playlist.Id, new List<int> { id });
+                }
+
                 SessionClose();
 
                 cancionCAD = new CancionCAD();
