@@ -3,6 +3,7 @@
 
 <table class="table">
     <tr>
+        <th></th>
         <th>Título</th>
         <th>Álbum</th>
         <th>Artista</th>
@@ -15,6 +16,12 @@
     @foreach (var item in Model)
     {
         <tr songId="@Html.DisplayFor(modelItem => item.Id)">
+            <td>
+                <audio id="song_@item.Id" dur="@item.Duracion" songTitle="@item.Titulo">
+                    <source src="~/src/Canciones/@(item.Id + item.SongExt)" type="audio/mp3" />
+                </audio>
+                <button id="play_@item.Id" type="button" class="btn btn-primary" onclick="playBtnList(@(item.Id), @(item.Duracion))"><span class="glyphicon glyphicon-play"></span></button>
+            </td>
             <td>
                 @item.Titulo
             </td>

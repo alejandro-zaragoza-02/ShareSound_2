@@ -26,7 +26,7 @@ namespace ShareSound_2_Front.Assemblers
             vm.PlaylistCreadas = new BasicPlaylistAssembler().ConvertListENToModel(en.Playlists_creadas).ToList();
             vm.PlaylistSeguidas = new BasicPlaylistAssembler().ConvertListENToModel(en.Playlists_seguidas).ToList();
             vm.CancionesGustadas = new BasicCancionAssembler().ConvertListENToViewModel(en.Canciones_gustadas).ToList();
-            vm.Seguidores = new BasicUsuarioAssembler().ConvertListENToModel(en.Seguidores).ToList();
+            vm.Seguidores = new BasicUsuarioAssembler().ConvertListENToModel(en.Seguidores).ToList().Count();
             vm.Seguidos = new BasicUsuarioAssembler().ConvertListENToModel(en.Seguidos).ToList();
             vm.Comentarios = en.Comentarios.ToList();
 
