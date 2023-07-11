@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ShareSound_2_Front.Models.UsuarioViewModel>
+
+@{
+    ViewBag.Title = "Siguiendo";
+}
+
+<h2>Artistas encontrados</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seguidos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seguidores)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Nombre, "Details", new { id = item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seguidos.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seguidores.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+
+</table>

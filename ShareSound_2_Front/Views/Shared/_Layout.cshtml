@@ -84,6 +84,7 @@
             <a href="@Url.Action("Seguidas","Playlist")" class="list-group-item ripple">Playlists seguidas</a>
             <a href="@Url.Action("Seguidos","Album")" class="list-group-item ripple">Albumes seguidos</a>
             <a href="@Url.Action("Liked","Cancion")" class="list-group-item ripple">Canciones que te gustan</a>
+            <a href="@Url.Action("Siguiendo","Usuario")" class="list-group-item ripple">Artistas que sigues</a>
         </nav>
         <div class="container body-content col-lg-10 col-md-10">
             @RenderBody()
@@ -170,11 +171,7 @@
             fetch('/Playlist/Remove?play_id=' + play_id + '&song_id=' + song_id)
                 .then(response => response.text())
                 .then(data => {
-                    if (data) {
-                        alert("Canción agregada correctamente a la playlist seleccionada!");
-                    } else {
-                        alert("La canción no se pudo agregar porque ya está añadida.");
-                    }
+                    location.reload();
                 });
         }
 

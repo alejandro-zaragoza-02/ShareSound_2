@@ -187,5 +187,18 @@ namespace ShareSound_2_Front.Controllers
 
             return View(list);
         }
+
+        public ActionResult Siguiendo()
+        {
+            SessionInitialize();
+            UsuarioCAD usuarioCAD = new UsuarioCAD(session);
+            UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioCAD);
+
+            UsuarioEN user = usuarioCEN.ReadOID(Convert.ToInt32(Session["userId"]));
+
+            List<UsuarioViewModel> vm = new UsuarioAssembler().ConvertListENToModel(user.Seguidos).ToList();
+
+            return View(vm);
+        }
     }
 }
