@@ -116,8 +116,7 @@
             if (previusSong && previusSong.length == 2) {
                 playBtnList(previusSong[0], previusSong[1]);
             }
-        }
-
+        }  
 
         function pauseBtn() {
             sessionStorage['songSec'] = document.getElementById('durIni').textContent;
@@ -130,6 +129,9 @@
         }
 
         function playBtnList(id, dur) {
+            fetch('/Cancion/getView?id=' + id)
+                .then(response => response.text())
+                .then(data => {});
             clearInterval(intervalSong);
             document.querySelector('.reproductor').style.maxHeight = '10vh';
             sessionStorage['songId'] = id;

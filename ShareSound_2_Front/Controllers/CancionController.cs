@@ -297,7 +297,13 @@ namespace ShareSound_2_Front.Controllers
             SessionClose();
 
             return View(vm);
-        } 
+        }
+
+        public void getView(int id)
+        {
+            CancionCEN cancionCEN = new CancionCEN();
+            cancionCEN.SumarReproduccion(id);
+        }
 
         public ActionResult Buscador(string nombre)
         {

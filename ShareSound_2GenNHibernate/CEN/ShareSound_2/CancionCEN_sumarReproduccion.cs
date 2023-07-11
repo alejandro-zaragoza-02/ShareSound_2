@@ -23,9 +23,13 @@ public void SumarReproduccion (int p_oid)
 {
         /*PROTECTED REGION ID(ShareSound_2GenNHibernate.CEN.ShareSound_2_Cancion_sumarReproduccion) ENABLED START*/
 
-        // Write here your custom code...
+        CancionCAD cancionCAD = new CancionCAD();
+        CancionCEN cancionCEN = new CancionCEN(cancionCAD);
+        CancionEN cancion = cancionCEN.ReadOID(p_oid);
 
-        throw new NotImplementedException ("Method SumarReproduccion() not yet implemented.");
+        cancion.Reproducciones += 1;
+
+        cancionCAD.Modify(cancion);
 
         /*PROTECTED REGION END*/
 }
