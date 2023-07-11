@@ -25,10 +25,42 @@
                     <div>
                         <input class="buscador" type="text" name="q" />
                         <select class="select" name="clases" id="select_busqueda">
-                            <option value="artista">Artista</option>
-                            <option value="cancion">Cancion</option>
-                            <option value="album">Album</option>
-                            <option value="playlist">Playlist</option>
+
+                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Artista/Buscador/"))
+                            {
+                                <option value="artista" selected>Artista</option>
+                            }
+                            else
+                            {
+                                <option value="artista">Artista</option>
+                            }
+
+                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Cancion/Buscador/"))
+                            {
+                                <option value="cancion" selected>Cancion</option>
+                            }
+                            else
+                            {
+                                <option value="cancion">Cancion</option>
+                            }
+
+                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Album/Buscador/"))
+                            {
+                                <option value="album" selected>Album</option>
+                            }
+                            else
+                            {
+                                <option value="album">Album</option>
+                            }
+
+                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Playlist/Buscador/"))
+                            {
+                                <option value="playlist" selected>Playlist</option>
+                            }
+                            else
+                            {
+                                <option value="playlist">Playlist</option>
+                            }
                         </select>
                         <button class="glyphicon glyphicon-search buscar"></button>
                     </div>

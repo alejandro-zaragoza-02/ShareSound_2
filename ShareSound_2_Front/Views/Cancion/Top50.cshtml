@@ -9,35 +9,64 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.N_likes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.N_repros)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duracion)
-        </th>
+        <th></th>
+        <th>Título</th>
+        <th>Álbum</th>
+        <th>Artista</th>
+        <th>Me gustas</th>
+        <th>Reproducciones</th>
+        <th>Duración</th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.N_likes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.N_repros)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duracion)
-        </td>
-    </tr>
+<tr songId="@Html.DisplayFor(modelItem => item.Id)">
+    <td>
+        <audio id="song_@item.Id" dur="@item.Duracion" songTitle="@item.Titulo">
+            <source src="~/src/Canciones/@(item.Id + item.SongExt)" type="audio/mp3" />
+        </audio>
+        <button id="play_@item.Id" type="button" class="btn btn-primary" onclick="playBtnList(@(item.Id), @(item.Duracion))"><span class="glyphicon glyphicon-play"></span></button>
+    </td>
+    <td>
+        @item.Titulo
+    </td>
+    <td>
+        <a href="/Album/Details/@Html.DisplayFor(modelItem => item.Album.Id)">@Html.DisplayFor(modelItem => item.Album.Titulo)</a>
+    </td>
+    <td>
+        <a href="/Usuario/Details/@item.Usuario.Id">@item.Usuario.Nombre</a>
+    </td>
+    <td>
+        @{
+            bool user_found = false;
+            foreach (var usuarios_gustados in item.UsuariosGustados)
+            {
+                if (usuarios_gustados.Id == Convert.ToInt32(Session["userId"]))
+                {
+                    user_found = true;
+                }
+            }
+            if (user_found)
+            {
+                <a href="@Url.Action("UnLike", "Cancion", new { id = item.Id })">
+                    @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart"></span>
+                </a>
+            }
+            else
+            {
+                <a href="@Url.Action("Like", "Cancion", new { id = item.Id })">
+                    @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart-empty"></span>
+                </a>
+            }
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.N_repros) <span class="glyphicon glyphicon-eye-open"></span>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
+    </td>
+
+</tr>
 }
 
 </table>

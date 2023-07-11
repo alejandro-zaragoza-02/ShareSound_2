@@ -7,33 +7,32 @@
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Seguidos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seguidores)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
+            @Html.ActionLink(item.Nombre, "Details", new { id = item.Id })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(modelItem => item.Seguidos.Count)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seguidores.Count)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
+            
         </td>
     </tr>
 }
