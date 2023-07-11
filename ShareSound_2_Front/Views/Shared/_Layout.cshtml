@@ -131,6 +131,48 @@
             }
         }
 
+        function reproducirMain() {
+            document.querySelector('.btn-play:first-of-type').click();
+        }
+
+        function setLike(id, likes, evt) {
+            evt.target.parentElement.innerHTML = parseInt(likes + 1) + ' <span class="glyphicon glyphicon-heart pointer" onclick="removeLike(' + id + ', ' + parseInt(likes + 1) + ', event)"></span>';
+            fetch('/Cancion/Like?id=' + id)
+                .then(response => response.text())
+                .then(data => { });
+        }
+
+        function removeLike(id, likes, evt) {
+            evt.target.parentElement.innerHTML = parseInt(likes - 1) + ' <span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(' + id + ', ' + parseInt(likes - 1) + ', event)"></span>';
+            fetch('/Cancion/UnLike?id=' + id)
+                .then(response => response.text())
+                .then(data => { });
+        }
+
+        function addPlaylist(play_id, song_id) {
+            fetch('/Playlist/Add?play_id=' + play_id + '&song_id=' + song_id)
+                .then(response => response.text())
+                .then(data => {
+                    if (data.toLowerCase() == "true") {
+                        alert("Canción agregada correctamente a la playlist seleccionada!");
+                    } else {
+                        alert("La canción no se pudo agregar porque ya está añadida.");
+                    }
+                });
+        }
+
+        function removePlaylist(play_id, song_id) {
+            fetch('/Playlist/Remove?play_id=' + play_id + '&song_id=' + song_id)
+                .then(response => response.text())
+                .then(data => {
+                    if (data) {
+                        alert("Canción agregada correctamente a la playlist seleccionada!");
+                    } else {
+                        alert("La canción no se pudo agregar porque ya está añadida.");
+                    }
+                });
+        }
+
         function changeVolume(evt) {
             localStorage['songVol'] = evt.target.value / 100;
             document.getElementById('song_' + sessionStorage['songId']).volume = localStorage['songVol'];
@@ -148,7 +190,7 @@
             if (previusSong && previusSong.length == 2) {
                 playBtnList(previusSong[0], previusSong[1]);
             }
-        }  
+        }
 
         function pauseBtn() {
             sessionStorage['songSec'] = document.getElementById('durIni').textContent;
@@ -163,7 +205,9 @@
         function playBtnList(id, dur) {
             fetch('/Cancion/getView?id=' + id)
                 .then(response => response.text())
-                .then(data => {});
+                .then(data => {
+                    document.getElementById('views_' + id).textContent = parseInt(document.getElementById('views_' + id).textContent) + 1;
+                });
             clearInterval(intervalSong);
             document.querySelector('.reproductor').style.maxHeight = '10vh';
             sessionStorage['songId'] = id;
@@ -232,6 +276,13 @@
                 alert('No se ha podido copiar el link');
             });
         }
+
+        function getTime(sec) {
+            let minutos = Math.floor(sec / 60);
+            let segundosRestantes = sec % 60;
+            return minutos + ":" + (segundosRestantes < 10 ? "0" + segundosRestantes : segundosRestantes);
+        }
+
 
         document.getElementById("busqueda_form").onsubmit = function (e) {
             e.preventDefault();

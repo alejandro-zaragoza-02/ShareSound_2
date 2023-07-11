@@ -357,3 +357,19 @@ nav span a {
 .maxw{
     width: 100%;
 }
+
+.pointer:hover{
+    cursor: pointer;   
+}
+
+.negro{
+    color: black;
+}
+
+.pl{
+    padding-left: .8em;
+}
+
+.selected:hover {
+    background-color: rgb(210 252 255);
+}

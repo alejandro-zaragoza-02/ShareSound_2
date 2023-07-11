@@ -43,9 +43,8 @@
                 </p>
             </div>
             <div>
-                <button type="button" class="btn btn-default" id="reproducir"><span class="glyphicon glyphicon-play" aria-hidden="true"> Reproducir</button>
+                <button type="button" class="btn btn-default" id="reproducir" onclick="reproducirMain()"><span class="glyphicon glyphicon-play" aria-hidden="true"> Reproducir</button>
                 <button type="button" class="btn btn-default d-none" id="pausar" style="display: none"><span class="glyphicon glyphicon-pause" aria-hidden="true"> Pausar</button>
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-random"></span> Aleatorio</button>
                 <button type="button" class="btn btn-default" id="btnShare" onclick="compartir();"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Compartir</button>
                 @{
                     if (Model.Usuario.Id == Convert.ToInt32(Session["userId"]))
@@ -96,7 +95,7 @@
                     <audio id="song_@item.Id" dur="@item.Duracion" songTitle="@item.Titulo">
                         <source src="~/src/Canciones/@(item.Id + item.SongExt)" type="audio/mp3" />
                     </audio>
-                    <button id="play_@item.Id" type="button" class="btn btn-primary" onclick="playBtnList(@(item.Id), @(item.Duracion))"><span class="glyphicon glyphicon-play"></span></button>
+                    <button id="play_@item.Id" type="button" class="btn btn-primary btn-play" onclick="playBtnList(@(item.Id), @(item.Duracion))"><span class="glyphicon glyphicon-play"></span></button>
                 </td>
                 <td>
                     @item.Titulo
@@ -119,20 +118,16 @@
                         }
                         if (user_found)
                         {
-                            <a href="@Url.Action("UnLike", "Cancion", new { id = item.Id, ctl = "Album", act = "Details", idLista = Model.Id })">
-                                @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart"></span>
-                            </a>
+                            @item.N_likes <span class="glyphicon glyphicon-heart pointer" onclick="removeLike(@(item.Id), @(item.N_likes), event)"></span>
                         }
                         else
                         {
-                            <a href="@Url.Action("Like", "Cancion", new { id = item.Id, ctl = "Album", act = "Details", idLista = Model.Id })">
-                                @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart-empty"></span>
-                            </a>
+                            @item.N_likes <span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(@(item.Id), @(item.N_likes), event)"></span>
                         }
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.N_repros) <span class="glyphicon glyphicon-eye-open"></span>
+                    <span id="views_@item.Id">@item.N_repros</span> <span class="glyphicon glyphicon-eye-open"></span>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
@@ -141,12 +136,12 @@
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-expand">
-                            <span class="caret"></span>
+                                <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             @foreach (var playlist in ViewData["idPlaylistSelected"] as Dictionary<int, string>)
                             {
-                                <li><a href="@Url.Action("Add", "Playlist", new { play_id = @playlist.Key, song_id = item.Id })">@playlist.Value</a></li>
+                                <li class="negro pointer selected pl" onclick="addPlaylist(@(playlist.Key), @(item.Id))">@playlist.Value</li>
                             }
                         </ul>
                     </div>

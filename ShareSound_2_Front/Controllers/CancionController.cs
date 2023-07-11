@@ -194,7 +194,7 @@ namespace ShareSound_2_Front.Controllers
         }
 
 
-        public ActionResult Like(int id, string ctl, string act, int idLista)
+        public void Like(int id)
         {
             try
             {
@@ -219,23 +219,14 @@ namespace ShareSound_2_Front.Controllers
 
                 cancionCEN.RecibirMeGusta(id, users);
 
-                if (idLista != 0)
-                {
-                    return RedirectToAction(act, ctl, new { id = idLista });
-                }
-                else
-                {
-                    return RedirectToAction(act, ctl);
-                }
             }
             catch
             {
                 // No se hace nada
             }
-            return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult UnLike(int id, string ctl, string act, int idLista)
+        public void UnLike(int id)
         {
             try
             {
@@ -260,21 +251,11 @@ namespace ShareSound_2_Front.Controllers
 
                 cancionCEN.QuitarMeGusta(id, users);
 
-                if(idLista != 0)
-                {
-                    return RedirectToAction(act, ctl, new { id = idLista });
-                }
-                else
-                {
-                    return RedirectToAction(act, ctl);
-                }
-
             }
             catch
             {
                 // No se hace nada
             }
-            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Liked()

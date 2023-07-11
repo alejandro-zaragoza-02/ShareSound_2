@@ -273,24 +273,45 @@ namespace ShareSound_2_Front.Controllers
             return RedirectToAction("Details", "Playlist", new { id = id });
         }
 
-        public ActionResult Add(int play_id, int song_id)
+        public bool Add(int play_id, int song_id)
         {
-            PlaylistCAD playlistCAD = new PlaylistCAD();
+            SessionInitialize();
+            PlaylistCAD playlistCAD = new PlaylistCAD(session);
             PlaylistCEN playlistCEN = new PlaylistCEN(playlistCAD);
+            PlaylistEN playlist = playlistCEN.ReadOID(play_id);
 
-            playlistCEN.AnyadirCancion(play_id, new List<int> { song_id });
+            bool found = false;
 
-            return RedirectToAction("Details", "Playlist", new { id = play_id });
+            foreach(CancionEN cancion in playlist.Canciones)
+            {
+                if(cancion.Id == song_id)
+                {
+                    found = true;
+                }
+            }
+
+            SessionClose();
+
+            playlistCAD = new PlaylistCAD();
+            playlistCEN = new PlaylistCEN(playlistCAD);
+
+            if (!found)
+            {
+                playlistCEN.AnyadirCancion(play_id, new List<int> { song_id });
+            }
+
+            found = !found;
+
+            return found;
+
         }
 
-        public ActionResult Remove(int play_id, int song_id)
+        public void Remove(int play_id, int song_id)
         {
             PlaylistCAD playlistCAD = new PlaylistCAD();
             PlaylistCEN playlistCEN = new PlaylistCEN(playlistCAD);
 
             playlistCEN.QuitarCancion(play_id, new List<int> { song_id });
-
-            return RedirectToAction("Edit", "Playlist", new { id = play_id });
         }
 
         public ActionResult Buscador(string nombre)
