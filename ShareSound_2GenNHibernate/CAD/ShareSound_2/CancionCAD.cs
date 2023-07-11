@@ -293,7 +293,7 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
                 //String sql = @"FROM CancionEN self where FROM CancionEN as can where can.Titulo LIKE :titulo";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("CancionENbuscarPorTituloHQL");
-                query.SetParameter ("titulo", titulo);
+                query.SetParameter ("titulo", '%' + titulo + '%');
 
                 result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN>();
                 SessionCommit ();
