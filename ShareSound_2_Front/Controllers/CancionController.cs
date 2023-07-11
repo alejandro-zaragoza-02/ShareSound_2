@@ -61,9 +61,7 @@ namespace ShareSound_2_Front.Controllers
         public ActionResult MasGustadas()
         {
             SessionInitialize();
-            CancionCAD cancionCAD = new CancionCAD(session);
-            CancionCEN cancionCEN = new CancionCEN(cancionCAD);
-            CancionCP cancionCP = new CancionCP();
+            CancionCP cancionCP = new CancionCP(session);
 
             IList<CancionEN> canciones = cancionCP.OrdenarPorMeGustas();
 

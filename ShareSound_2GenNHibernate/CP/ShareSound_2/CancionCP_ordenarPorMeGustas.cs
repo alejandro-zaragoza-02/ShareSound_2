@@ -38,14 +38,9 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
                 cancionCEN = new  CancionCEN (cancionCAD);
 
                 List<CancionEN> canciones = (List<CancionEN>)cancionCEN.ReadAll (0, -1);
+                canciones.Sort((a,b) => b.Usuarios_gustados.Count.CompareTo(a.Usuarios_gustados.Count));
 
-
-
-                // Write here your custom transaction ...
-
-                throw new NotImplementedException ("Method OrdenarPorMeGustas() not yet implemented.");
-
-
+                result = canciones;
 
                 SessionCommit ();
         }
