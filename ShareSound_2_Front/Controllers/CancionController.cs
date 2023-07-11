@@ -40,6 +40,19 @@ namespace ShareSound_2_Front.Controllers
 
             IList<CancionEN> canciones = cancionCEN.OrdenarPorReproducciones();
 
+            UsuarioCAD userCAD = new UsuarioCAD(session);
+            UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+            UsuarioEN user = userCEN.ReadOID(Convert.ToInt32(Session["userId"]));
+
+            Dictionary<int, string> playlists = new Dictionary<int, string>();
+
+            foreach (PlaylistEN playlist in user.Playlists_creadas)
+            {
+                playlists.Add(playlist.Id, playlist.Titulo);
+            }
+
+            ViewData["idPlaylistSelected"] = playlists;
+
             IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(10);
             SessionClose();
             return View(vm);
@@ -53,6 +66,19 @@ namespace ShareSound_2_Front.Controllers
 
             IList<CancionEN> canciones = cancionCEN.OrdenarPorReproducciones();
 
+            UsuarioCAD userCAD = new UsuarioCAD(session);
+            UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+            UsuarioEN user = userCEN.ReadOID(Convert.ToInt32(Session["userId"]));
+
+            Dictionary<int, string> playlists = new Dictionary<int, string>();
+
+            foreach (PlaylistEN playlist in user.Playlists_creadas)
+            {
+                playlists.Add(playlist.Id, playlist.Titulo);
+            }
+
+            ViewData["idPlaylistSelected"] = playlists;
+
             IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(50);
             SessionClose();
             return View(vm);
@@ -64,6 +90,19 @@ namespace ShareSound_2_Front.Controllers
             CancionCP cancionCP = new CancionCP(session);
 
             IList<CancionEN> canciones = cancionCP.OrdenarPorMeGustas();
+
+            UsuarioCAD userCAD = new UsuarioCAD(session);
+            UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+            UsuarioEN user = userCEN.ReadOID(Convert.ToInt32(Session["userId"]));
+
+            Dictionary<int, string> playlists = new Dictionary<int, string>();
+
+            foreach (PlaylistEN playlist in user.Playlists_creadas)
+            {
+                playlists.Add(playlist.Id, playlist.Titulo);
+            }
+
+            ViewData["idPlaylistSelected"] = playlists;
 
             IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(100);
             SessionClose();
@@ -298,6 +337,19 @@ namespace ShareSound_2_Front.Controllers
 
             IList<CancionEN> cancion = new List<CancionEN>();
             cancion = cancionCEN.BuscarPorTitulo(Final);
+
+            UsuarioCAD userCAD = new UsuarioCAD(session);
+            UsuarioCEN userCEN = new UsuarioCEN(userCAD);
+            UsuarioEN user = userCEN.ReadOID(Convert.ToInt32(Session["userId"]));
+
+            Dictionary<int, string> playlists = new Dictionary<int, string>();
+
+            foreach (PlaylistEN playlist in user.Playlists_creadas)
+            {
+                playlists.Add(playlist.Id, playlist.Titulo);
+            }
+
+            ViewData["idPlaylistSelected"] = playlists;
 
             IEnumerable<CancionViewModel> list = new CancionAssembler().ConvertListENToViewModel(cancion).ToList();
             SessionClose();

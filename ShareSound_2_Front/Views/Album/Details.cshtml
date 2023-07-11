@@ -118,19 +118,19 @@
                         }
                         if (user_found)
                         {
-                            @item.N_likes <span class="glyphicon glyphicon-heart pointer" onclick="removeLike(@(item.Id), @(item.N_likes), event)"></span>
+                            <span class="glyphicon glyphicon-heart pointer" onclick="removeLike(@(item.Id), @(item.N_likes), event)"></span> @item.N_likes
                         }
                         else
                         {
-                            @item.N_likes <span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(@(item.Id), @(item.N_likes), event)"></span>
+                            <span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(@(item.Id), @(item.N_likes), event)"></span> @item.N_likes
                         }
                     }
                 </td>
                 <td>
-                    <span id="views_@item.Id">@item.N_repros</span> <span class="glyphicon glyphicon-eye-open"></span>
+                    <span class="glyphicon glyphicon-headphones"></span> <span id="views_@item.Id">@item.N_repros</span>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
+                    <span class="glyphicon glyphicon-time"></span> @item.Duracion
                 </td>
                 <td>
                     <div class="dropdown">

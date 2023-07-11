@@ -324,7 +324,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Views\Cancion\Create.cshtml" />
-    <Content Include="Views\Cancion\Index.cshtml" />
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Album\Seguidos.cshtml" />
     <Content Include="Views\Playlist\Create.cshtml" />

@@ -94,13 +94,13 @@
                     <audio id="song_@item.Id" dur="@item.Duracion" songTitle="@item.Titulo">
                         <source src="~/src/Canciones/@(item.Id + item.SongExt)" type="audio/mp3" />
                     </audio>
-                    <button id="play_@item.Id" type="button" class="btn btn-primary" onclick="playBtnList(@(item.Id), @(item.Duracion))"><span class="glyphicon glyphicon-play"></span></button>
+                    <button id="play_@item.Id" type="button" class="btn btn-primary btn-play" onclick="playBtnList(@(item.Id), @(item.Duracion))"><span class="glyphicon glyphicon-play"></span></button>
                 </td>
                 <td>
                     @item.Titulo
                 </td>
                 <td>
-                    <a href="/Album/Details/@item.Album.Id">@item.Album.Titulo</a>
+                    <a href="/Album/Details/@Html.DisplayFor(modelItem => item.Album.Id)">@Html.DisplayFor(modelItem => item.Album.Titulo)</a>
                 </td>
                 <td>
                     <a href="/Usuario/Details/@item.Usuario.Id">@item.Usuario.Nombre</a>
@@ -117,39 +117,35 @@
                         }
                         if (user_found)
                         {
-                            <div class="pointer">
-                                @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart" onclick="removeLike(@item.Id)"></span>
-                            </div>
+                            <span class="glyphicon glyphicon-heart pointer" onclick="removeLike(@(item.Id), @(item.N_likes), event)"></span> @item.N_likes
                         }
                         else
                         {
-                            <div class="pointer">
-                                @Html.DisplayFor(modelItem => item.N_likes) <span class="glyphicon glyphicon-heart-empty" onclick="setLike(@Model.Id)"></span>
-                            </div>
+                            <span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(@(item.Id), @(item.N_likes), event)"></span> @item.N_likes
                         }
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.N_repros) <span class="glyphicon glyphicon-eye-open"></span>
+                    <span class="glyphicon glyphicon-headphones"></span> <span id="views_@item.Id">@item.N_repros</span>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Duracion) <span class="glyphicon glyphicon-time"></span>
+                    <span class="glyphicon glyphicon-time"></span> @item.Duracion
                 </td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-expand">
-                            <span class="caret"></span>
+                                <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             @foreach (var playlist in ViewData["idPlaylistSelected"] as Dictionary<int, string>)
                             {
-                                <li><a href="@Url.Action("Add", "Playlist", new { play_id = @playlist.Key, song_id = item.Id })">@playlist.Value</a></li>
+                                <li class="negro pointer selected pl" onclick="addPlaylist(@(playlist.Key), @(item.Id))">@playlist.Value</li>
                             }
                         </ul>
                     </div>
                 </td>
             </tr>
-         }
+        }
     </table>
 </div>

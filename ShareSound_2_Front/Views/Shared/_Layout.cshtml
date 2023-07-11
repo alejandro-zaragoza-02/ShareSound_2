@@ -136,14 +136,14 @@
         }
 
         function setLike(id, likes, evt) {
-            evt.target.parentElement.innerHTML = parseInt(likes + 1) + ' <span class="glyphicon glyphicon-heart pointer" onclick="removeLike(' + id + ', ' + parseInt(likes + 1) + ', event)"></span>';
+            evt.target.parentElement.innerHTML = '<span class="glyphicon glyphicon-heart pointer" onclick="removeLike(' + id + ', ' + parseInt(likes + 1) + ', event)"></span> ' + parseInt(likes + 1);
             fetch('/Cancion/Like?id=' + id)
                 .then(response => response.text())
                 .then(data => { });
         }
 
         function removeLike(id, likes, evt) {
-            evt.target.parentElement.innerHTML = parseInt(likes - 1) + ' <span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(' + id + ', ' + parseInt(likes - 1) + ', event)"></span>';
+            evt.target.parentElement.innerHTML = '<span class="glyphicon glyphicon-heart-empty pointer" onclick="setLike(' + id + ', ' + parseInt(likes - 1) + ', event)"></span> ' + parseInt(likes - 1);
             fetch('/Cancion/UnLike?id=' + id)
                 .then(response => response.text())
                 .then(data => { });
