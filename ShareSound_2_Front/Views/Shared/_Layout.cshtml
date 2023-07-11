@@ -26,41 +26,46 @@
                         <input class="buscador" type="text" name="q" />
                         <select class="select" name="clases" id="select_busqueda">
 
-                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Artista/Buscador/"))
-                            {
-                                <option value="artista" selected>Artista</option>
-                            }
-                            else
-                            {
-                                <option value="artista">Artista</option>
+                            @{
+                                string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+
+                                if (controllerName == "Artista")
+                                {
+                                    <option value="artista" selected>Artista</option>
+                                }
+                                else
+                                {
+                                    <option value="artista">Artista</option>
+                                }
+
+                                if (controllerName == "Cancion")
+                                {
+                                    <option value="cancion" selected>Cancion</option>
+                                }
+                                else
+                                {
+                                    <option value="cancion">Cancion</option>
+                                }
+
+                                if (controllerName == "Album")
+                                {
+                                    <option value="album" selected>Album</option>
+                                }
+                                else
+                                {
+                                    <option value="album">Album</option>
+                                }
+
+                                if (controllerName == "Playlist")
+                                {
+                                    <option value="playlist" selected>Playlist</option>
+                                }
+                                else
+                                {
+                                    <option value="playlist">Playlist</option>
+                                }
                             }
 
-                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Cancion/Buscador/"))
-                            {
-                                <option value="cancion" selected>Cancion</option>
-                            }
-                            else
-                            {
-                                <option value="cancion">Cancion</option>
-                            }
-
-                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Album/Buscador/"))
-                            {
-                                <option value="album" selected>Album</option>
-                            }
-                            else
-                            {
-                                <option value="album">Album</option>
-                            }
-
-                            @if (HttpContext.Current.Request.Url.AbsoluteUri.Equals("https://localhost:44332/Playlist/Buscador/"))
-                            {
-                                <option value="playlist" selected>Playlist</option>
-                            }
-                            else
-                            {
-                                <option value="playlist">Playlist</option>
-                            }
                         </select>
                         <button class="glyphicon glyphicon-search buscar"></button>
                     </div>

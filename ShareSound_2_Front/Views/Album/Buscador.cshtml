@@ -1,31 +1,27 @@
 ﻿@model IEnumerable<ShareSound_2_Front.Models.ListaViewModel>
 
+<h2>Resultados de la busqueda de Álbumes</h2>
+<hr />
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-      
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
+    @foreach (var item in Model)
+    {
+        <a class="col-lg-3 col-md-6 col-sm-12" href="@Url.Action("Details","Album", new { id = item.Id })">
+            <div class="text-center">
+                @{
+                    if (item.ImagenExt == "")
+                    {
+                        <img src="~/src/Albumes/noimg.jpg" class="img_list" />
+                    }
+                    else
+                    {
+                        <img src="~/src/Albumes/@(item.Id + item.ImagenExt)" class="img_list" />
+                    }
+                }
+            </div>
+            <p class="text-center">@(item.Titulo)</p>
+        </a>
+    }
 
-        </td>
-    </tr>
-}
-
-</table>
+</div>

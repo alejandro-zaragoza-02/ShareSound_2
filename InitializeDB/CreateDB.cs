@@ -91,30 +91,41 @@ public static void InitializeData ()
                 ListaCEN listaCEN = new ListaCEN (_IListaCAD);
                 ComentarioCEN comentarioCEN = new ComentarioCEN (_IComentarioCAD);
 
-                int user_0_id = usuarioCEN.New_ ("Dsm123$", "ShareSound", "ShareSound", ".jpg", "sharesound@gmail.com", DateTime.Now);
                 int user_1_id = usuarioCEN.New_ ("Dsm123$", "Alejandro", "Me llamo Alejandro!", ".jpg", "alejandro@gmail.com", DateTime.Now);
                 int user_2_id = usuarioCEN.New_ ("Dsm123$", "Miguel", "Me llamo Miguel!", ".jpg", "miguel@gmail.com", DateTime.Now);
                 int user_3_id = usuarioCEN.New_ ("Dsm123$", "Pablo", "Me llamo Pablo!", ".jpg", "pablo@gmail.com", DateTime.Now);
 
-                Console.WriteLine ("Este es el ID del usuario admin --> " + user_0_id);
-
-                int album_1_id = albumCEN.New_ ("Albumium", "Albumium es un �lbum muy chachi.", "65536.jpg", false, DateTime.Now, user_1_id);
-                int album_2_id = albumCEN.New_ ("La vida es bella", "La vida es bella es un �lbum lleno de inspiraci�n.", ".jpg", false, DateTime.Now, user_1_id);
+                int album_1_id = albumCEN.New_ ("Albumium", "", ".jpg", false, DateTime.Now, user_1_id);
+                int album_2_id = albumCEN.New_ ("La vida es bella", "La vida es bella es un album lleno de inspiracion.", ".jpg", false, DateTime.Now, user_1_id);
                 int album_3_id = albumCEN.New_ ("Platinostrum", "Platinostrum es una experiencia musical innovadora!", ".jpg", false, DateTime.Now, user_2_id);
 
-                int playlist_1_id = playlistCEN.New_ ("Albumium", "Albumium es un �lbum muy chachi.", ".jpg", false, DateTime.Now, user_3_id);
+                int playlist_1_id = playlistCEN.New_ ("Pandereta", "Pandereta es un playlist donde hay canciones muy guays.", ".jpg", false, DateTime.Now, user_3_id);
 
-                int cancion_1_id = cancionCEN.New_ ("Luz de luna", ".mp3", 120, 0, DateTime.Now, album_1_id);
-                int cancion_2_id = cancionCEN.New_ ("Luz de sol", ".mp3", 140, 0, DateTime.Now, album_1_id);
-                int cancion_3_id = cancionCEN.New_ ("Terricolas", ".mp3", 180, 0, DateTime.Now, album_3_id);
+                int cancion_1_id = cancionCEN.New_ ("Luz de luna", ".mp3", 273, 0, DateTime.Now, album_1_id);
+                int cancion_2_id = cancionCEN.New_ ("Luz de sol", ".mp3", 8, 0, DateTime.Now, album_1_id);
+                int cancion_3_id = cancionCEN.New_ ("Terricolas", ".mp3", 208, 0, DateTime.Now, album_3_id);
 
                 IList<int> lista = new List<int>();
                 lista.Add (cancion_2_id);
                 playlistCEN.AnyadirCancion (playlist_1_id, lista);
 
+                Console.WriteLine(user_1_id);
+                Console.WriteLine(user_2_id);
+                Console.WriteLine(user_3_id);
+
+                Console.WriteLine(album_1_id);
+                Console.WriteLine(album_2_id);
+                Console.WriteLine(album_3_id);
+
+                Console.WriteLine(playlist_1_id);
+
+                Console.WriteLine(cancion_1_id);
+                Console.WriteLine(cancion_2_id);
+                Console.WriteLine(cancion_3_id);
+
 
                 /*PROTECTED REGION END*/
-        }
+            }
         catch (Exception ex)
         {
                 System.Console.WriteLine (ex.InnerException);
