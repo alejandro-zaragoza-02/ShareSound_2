@@ -38,8 +38,6 @@ System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.Canci
 System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> OrdenarPorReproducciones ();
 
 
-System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> OrdenarPorMeGustas ();
-
 
 System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> OrdenarPorTitulo ();
 

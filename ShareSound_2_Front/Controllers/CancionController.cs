@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NAudio.Wave;
+using ShareSound_2GenNHibernate.CP.ShareSound_2;
 
 namespace ShareSound_2_Front.Controllers
 {
@@ -62,8 +63,9 @@ namespace ShareSound_2_Front.Controllers
             SessionInitialize();
             CancionCAD cancionCAD = new CancionCAD(session);
             CancionCEN cancionCEN = new CancionCEN(cancionCAD);
+            CancionCP cancionCP = new CancionCP();
 
-            IList<CancionEN> canciones = cancionCEN.OrdenarPorMeGustas();
+            IList<CancionEN> canciones = cancionCP.OrdenarPorMeGustas();
 
             IEnumerable<CancionViewModel> vm = new CancionAssembler().ConvertListENToViewModel(canciones).ToList().Take(100);
             SessionClose();

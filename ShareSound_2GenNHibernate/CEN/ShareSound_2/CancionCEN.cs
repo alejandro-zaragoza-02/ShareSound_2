@@ -117,10 +117,6 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
 {
         return _ICancionCAD.OrdenarPorReproducciones ();
 }
-public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> OrdenarPorMeGustas ()
-{
-        return _ICancionCAD.OrdenarPorMeGustas ();
-}
 public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> OrdenarPorTitulo ()
 {
         return _ICancionCAD.OrdenarPorTitulo ();

@@ -293,8 +293,8 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
                 //String sql = @"FROM CancionEN self where FROM CancionEN as can where can.Titulo LIKE :titulo";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("CancionENbuscarPorTituloHQL");
-                query.SetParameter ("titulo", "%" + titulo + "%");
-                
+                query.SetParameter ("titulo", titulo);
+
                 result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN>();
                 SessionCommit ();
         }
@@ -323,35 +323,6 @@ public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_
                 //String sql = @"FROM CancionEN self where FROM CancionEN as can ORDER BY can.Reproducciones DESC";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("CancionENordenarPorReproduccionesHQL");
-
-                result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN>();
-                SessionCommit ();
-        }
-
-        catch (Exception ex) {
-                SessionRollBack ();
-                if (ex is ShareSound_2GenNHibernate.Exceptions.ModelException)
-                        throw ex;
-                throw new ShareSound_2GenNHibernate.Exceptions.DataLayerException ("Error in CancionCAD.", ex);
-        }
-
-
-        finally
-        {
-                SessionClose ();
-        }
-
-        return result;
-}
-public System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> OrdenarPorMeGustas ()
-{
-        System.Collections.Generic.IList<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN> result;
-        try
-        {
-                SessionInitializeTransaction ();
-                //String sql = @"FROM CancionEN self where FROM CancionEN as can LEFT JOIN can.Usuarios_gustados as usus GROUP BY can ORDER BY COUNT(usus) DESC";
-                //IQuery query = session.CreateQuery(sql);
-                IQuery query = (IQuery)session.GetNamedQuery ("CancionENordenarPorMeGustasHQL");
 
                 result = query.List<ShareSound_2GenNHibernate.EN.ShareSound_2.CancionEN>();
                 SessionCommit ();
